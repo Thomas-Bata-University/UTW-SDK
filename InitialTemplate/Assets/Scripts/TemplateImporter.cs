@@ -1,5 +1,6 @@
-using System.Net;
 using UnityEditor;
+using UnityEditor.PackageManager;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 public class TemplateImporter : EditorWindow {
@@ -13,22 +14,26 @@ public class TemplateImporter : EditorWindow {
         GUILayout.Label("Import Project Template", EditorStyles.boldLabel);
 
         if (GUILayout.Button("Import HULL template")) {
-            ImportTemplate("https://github.com/Thomas-Bata-University/UTW-Templates/blob/main/packages/Hull_Template.unitypackage");
+            DownloadPackage(
+                "https://github.com/Thomas-Bata-University/UTW-Templates/blob/main/packages/Hull_Template.unitypackage");
         }
 
         // Add more buttons for other templates
     }
 
-    private void ImportTemplate(string url) {
-        string packagePath = Application.dataPath + "/DownloadedTemplate.unitypackage";
+    private void DownloadPackage(string url) {
+        AddRequest request = Client.Add(url);
 
-        using (WebClient client = new WebClient()) {
-            client.DownloadFile(url, packagePath);
+        while (!request.IsCompleted) {
+            //Can add progress bar
         }
 
-        AssetDatabase.ImportPackage(packagePath, true);
-
-        // Add your custom setup code here (e.g., configuring scenes, assets, etc.)
+        if (request.Status == StatusCode.Success) {
+            Debug.Log("Package successfully imported.");
+        }
+        else {
+            Debug.LogError($"An error occured during importing: {request.Error.message}");
+        }
     }
 
 } //END
