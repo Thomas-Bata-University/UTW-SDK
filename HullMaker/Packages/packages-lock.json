@@ -135,6 +135,12 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.utw.hull_template": {
+      "version": "file:Hull_Template",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

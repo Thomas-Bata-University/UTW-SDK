@@ -13,7 +13,7 @@ public class TemplateImporter : EditorWindow {
         GUILayout.Label("Import Project Template", EditorStyles.boldLabel);
 
         if (GUILayout.Button("Import HULL template")) {
-            ImportTemplate("https://github.com/yourrepo/Template1.unitypackage");
+            ImportTemplate("https://github.com/Thomas-Bata-University/UTW-Templates/blob/main/packages/Hull_Template.unitypackage");
         }
 
         // Add more buttons for other templates
