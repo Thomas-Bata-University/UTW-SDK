@@ -1,3 +1,4 @@
+using Other.Scripts;
 using UnityEditor;
 
 [InitializeOnLoad]
@@ -8,8 +9,8 @@ public class OpenWindow {
     }
 
     private static void OpenMyEditorWindow() {
-        TemplateImporter window = (TemplateImporter)EditorWindow.GetWindow(typeof(TemplateImporter));
-        window.Show();
+        // CreatePartController window = (CreatePartController)EditorWindow.GetWindow(typeof(CreatePartController));
+        // window.Show();
     }
 
 } //END

@@ -47,13 +47,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mass: 1000
-  mesh: {fileID: 0}
+  mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
   numOfMat: 1
   materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 5a37db1479003f94097ad2fa32716416, type: 2}
   numOfCol: 1
   colliders:
-  - {fileID: 0}
+  - {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2097685527237099882
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 9127768100933672682}
   - component: {fileID: 7724183249247038827}
   - component: {fileID: 257162254739664227}
-  - component: {fileID: 3336058559065436162}
+  - component: {fileID: 6264569813984673784}
   m_Layer: 0
   m_Name: HullVisual
   m_TagString: HullVisual
@@ -147,7 +147,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ef6bfc29a703b13499d49ab249699651, type: 2}
+  - {fileID: 2100000, guid: 5a37db1479003f94097ad2fa32716416, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -169,7 +169,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3336058559065436162
+--- !u!64 &6264569813984673784
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
