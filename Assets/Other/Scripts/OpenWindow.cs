@@ -1,16 +1,22 @@
-using Other.Scripts;
 using UnityEditor;
 
-[InitializeOnLoad]
-public class OpenWindow {
+namespace Other.Scripts {
+    [InitializeOnLoad]
+    public class OpenWindow {
 
-    static OpenWindow() {
-        EditorApplication.delayCall += OpenMyEditorWindow;
+        private const string FirstOpen = "FirstOpen";
+
+        static OpenWindow() {
+            EditorApplication.delayCall += OpenMyEditorWindow;
+        }
+
+        private static void OpenMyEditorWindow() {
+            if (EditorPrefs.GetBool(FirstOpen, true)) {
+                WelcomeController window = (WelcomeController)EditorWindow.GetWindow(typeof(WelcomeController));
+                window.Show();
+                EditorPrefs.SetBool(FirstOpen, false);
+            }
+        }
+
     }
-
-    private static void OpenMyEditorWindow() {
-        // CreatePartController window = (CreatePartController)EditorWindow.GetWindow(typeof(CreatePartController));
-        // window.Show();
-    }
-
 } //END

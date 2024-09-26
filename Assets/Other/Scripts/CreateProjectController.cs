@@ -4,13 +4,13 @@ using UnityEngine;
 using static Other.Scripts.AssetPaths;
 
 namespace Other.Scripts {
-    public class CreatePartController : EditorWindow {
+    public class CreateProjectController : EditorWindow {
 
-        private static CreatePartController _window;
+        private static CreateProjectController _window;
 
-        [MenuItem("UTW/Create")]
+        [MenuItem("UTW/Create project", false, 2)]
         public static void ShowWindow() {
-            _window = GetWindow<CreatePartController>("Create part");
+            _window = GetWindow<CreateProjectController>("Create project");
 
             var size = new Vector2(600, 325);
             _window.minSize = size;
@@ -18,6 +18,12 @@ namespace Other.Scripts {
         }
 
         private void OnGUI() {
+            if (OpenProjectController.isOpenedProject) {
+                OpenProjectController.ShowWindow();
+                Debug.LogWarning("Cannot create a new project when another one is open.");
+                Close();
+            }
+
             GUILayout.Space(10);
             CreateHeader();
             GUILayout.Space(20);
@@ -27,8 +33,7 @@ namespace Other.Scripts {
         private void CreateHeader() {
             GUILayout.Label("Welcome in UTW - Development Kit", StyleUtils.Style(30, EditorStyles.boldLabel));
             GUILayout.Space(10);
-            GUILayout.Label("This is a Unity project for creating tank parts for the UTW game.\n" +
-                            "Choose from the following project templates\ndepending on what part of the tank you want to create.",
+            GUILayout.Label("Choose from the following project templates\ndepending on what part of the tank you want to create.",
                 StyleUtils.Style(13, EditorStyles.label));
         }
 
@@ -56,11 +61,19 @@ namespace Other.Scripts {
 
             if (GUILayout.Button("SUSPENSION")) {
             }
+
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("Open project", GUILayout.Width(200))) {
+                OpenProjectController.ShowWindow();
+                Close();
+            }
         }
 
         #region Copy
 
         private void CopyPrefab(string folderName, string[] foldersToCopy, string destPath, string prefabName) {
+            if (string.IsNullOrEmpty(destPath)) return;
+
             string basePath = Path.Combine("Assets", "Other", folderName);
             CopyFolders(basePath, foldersToCopy, destPath);
 

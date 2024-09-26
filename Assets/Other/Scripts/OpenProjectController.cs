@@ -5,32 +5,32 @@ using UnityEngine;
 using static Other.Scripts.AssetPaths;
 
 namespace Other.Scripts {
-    public class ProjectController : EditorWindow {
+    public class OpenProjectController : EditorWindow {
 
-        private static ProjectController _window;
+        private static OpenProjectController _window;
         private const string ProjectPath = "OpenedFolderPath";
+        public static bool isOpenedProject = false;
 
         private int _selectedTab = 0;
         private string[] _tabNames = { "Hull", "Turret", "Weaponry", "Suspension" };
         private string[] _folderPaths = { HULL, TURRET, WEAPONRY, SUSPENSION };
         private Dictionary<string, string[]> _folderContents = new();
 
-        [MenuItem("UTW/Projects")]
+        [MenuItem("UTW/Open project", false, 3)]
         public static void ShowWindow() {
-            _window = GetWindow<ProjectController>("Projects");
+            _window = GetWindow<OpenProjectController>("Open project");
 
             var size = new Vector2(700, 325);
             _window.minSize = size;
             _window.maxSize = size;
         }
 
-        private void OnEnable() {
-            LoadFolderContents();
-        }
-
         private void OnGUI() {
+            LoadFolderContents();
+
             string projectPath = EditorPrefs.GetString(ProjectPath, "");
-            if (!string.IsNullOrEmpty(projectPath)) {
+            isOpenedProject = !string.IsNullOrEmpty(projectPath);
+            if (isOpenedProject) {
                 DisplayOpenedProject(projectPath);
                 return;
             }
@@ -71,6 +71,7 @@ namespace Other.Scripts {
 
             if (GUILayout.Button("Close", GUILayout.Width(100))) {
                 EditorPrefs.DeleteKey(ProjectPath);
+                isOpenedProject = false;
             }
 
             GUILayout.EndHorizontal();
@@ -113,6 +114,16 @@ namespace Other.Scripts {
             }
             else {
                 GUILayout.Label("No folders found.");
+            }
+
+            CreateButton();
+        }
+
+        private void CreateButton() {
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("Create new project", GUILayout.Width(200))) {
+                CreateProjectController.ShowWindow();
+                Close();
             }
         }
 
