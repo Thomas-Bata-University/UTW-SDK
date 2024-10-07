@@ -86,10 +86,10 @@ namespace Other.CoreScripts {
             CopyFolders(basePath, foldersToCopy, destPath);
 
             string relativePath = "Assets" + destPath.Substring(Application.dataPath.Length);
-            string prefabPath = Path.Combine(relativePath, "Prefabs", prefabName);
-            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath + ".prefab");
-            PrefabUtility.InstantiatePrefab(prefab);
-            OpenProjectController.OpenProject(relativePath);
+            string prefabPath = relativePath + "/Prefabs/" + prefabName;
+            ProjectManager.CreatePrefab(prefabPath);
+            string metadataPath = ProjectManager.CreateMetadata(new ProjectManager.Metadata(prefabPath, relativePath));
+            OpenProjectController.OpenProject(metadataPath);
             Close();
         }
 

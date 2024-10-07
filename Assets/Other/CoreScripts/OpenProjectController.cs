@@ -8,7 +8,7 @@ namespace Other.CoreScripts {
     public class OpenProjectController : EditorWindow {
 
         private static OpenProjectController _window;
-        private const string ProjectPath = "OpenedFolderPath";
+        private const string MetadataPath = "OpenedProjectMetadata";
         public static bool IsOpenedProject = false;
 
         private Vector2 _scrollPosition;
@@ -28,10 +28,12 @@ namespace Other.CoreScripts {
         private void OnGUI() {
             LoadFolderContents();
 
-            string projectPath = EditorPrefs.GetString(ProjectPath, "");
-            IsOpenedProject = !string.IsNullOrEmpty(projectPath);
+            string metadataPath = EditorPrefs.GetString(MetadataPath, "");
+            ProjectManager.Metadata metadata = ProjectManager.GetMetadata(metadataPath);
+            IsOpenedProject = metadata is not null;
             if (IsOpenedProject) {
-                DisplayOpenedProject(projectPath);
+                IsOpenedProject = true;
+                DisplayOpenedProject(metadata);
                 return;
             }
 
@@ -57,20 +59,24 @@ namespace Other.CoreScripts {
 
         #region Display
 
-        private void DisplayOpenedProject(string projectPath) {
+        private void DisplayOpenedProject(ProjectManager.Metadata metadata) {
             GUILayout.Space(10);
-            GUILayout.Label(Path.GetFileName(projectPath), StyleUtils.Style(25, EditorStyles.boldLabel));
+            GUILayout.Label(metadata.projectName, StyleUtils.Style(25, EditorStyles.boldLabel));
             GUILayout.Space(20);
 
             GUILayout.FlexibleSpace();
             GUILayout.BeginHorizontal(GUILayout.Width(position.width));
             GUILayout.FlexibleSpace();
             if (GUILayout.Button("Save", GUILayout.Width(100))) {
+                ProjectManager.OverridePrefab(metadata);
+                Debug.Log($"Project {metadata.projectName} successfully saved.");
             }
 
             if (GUILayout.Button("Close", GUILayout.Width(100))) {
-                EditorPrefs.DeleteKey(ProjectPath);
+                EditorPrefs.DeleteKey(MetadataPath);
                 IsOpenedProject = false;
+                ProjectManager.RemovePrefab(metadata);
+                Debug.Log($"Project {metadata.projectName} successfully closed.");
             }
 
             GUILayout.EndHorizontal();
@@ -80,9 +86,10 @@ namespace Other.CoreScripts {
             if (_folderContents.ContainsKey(folderPath)) {
                 //Header
                 GUILayout.BeginHorizontal();
-                GUILayout.Label("Name", EditorStyles.boldLabel, GUILayout.Width(200));
-                GUILayout.Label("Size", EditorStyles.boldLabel, GUILayout.Width(100));
-                GUILayout.Label("Last update", EditorStyles.boldLabel, GUILayout.Width(150));
+                GUILayout.Label("", EditorStyles.boldLabel, GUILayout.Width(3));
+                GUILayout.Label("Project name", EditorStyles.boldLabel, GUILayout.Width(200));
+                GUILayout.Label("Size", EditorStyles.boldLabel, GUILayout.Width(101));
+                GUILayout.Label("Last update", EditorStyles.boldLabel, GUILayout.Width(152));
                 GUILayout.EndHorizontal();
                 GUILayout.Space(5);
 
@@ -99,14 +106,20 @@ namespace Other.CoreScripts {
 
                     GUILayout.Label(folderName, GUILayout.Width(200));
                     GUILayout.Label(FormatSize(folderSize), GUILayout.Width(100));
-                    GUILayout.Label(lastModified, GUILayout.Width(150));
+                    GUILayout.Label(lastModified, GUILayout.Width(170));
 
                     if (GUILayout.Button("Open", GUILayout.Width(100))) {
-                        OpenProject(subFolder);
+                        string metadataPath = subFolder + METADATA;
+                        OpenProject(metadataPath);
+                        ProjectManager.CreatePrefabWithMetadata(metadataPath);
+                        Debug.Log($"Project {subFolder} successfully opened.");
                     }
 
                     if (GUILayout.Button("Delete", GUILayout.Width(100))) {
                         DeleteProject(subFolder);
+                        Debug.Log($"Project {subFolder} successfully deleted.");
+
+
                     }
 
                     GUILayout.EndHorizontal();
@@ -154,14 +167,13 @@ namespace Other.CoreScripts {
 
         #endregion
 
-        public static void OpenProject(string subFolder) {
-            EditorPrefs.SetString(ProjectPath, subFolder);
+        public static void OpenProject(string metadataPath) {
+            EditorPrefs.SetString(MetadataPath, metadataPath);
             IsOpenedProject = true;
         }
 
         private void DeleteProject(string subFolder) {
             AssetDatabase.DeleteAsset(subFolder);
-            Debug.Log($"Deleted {subFolder}");
             Repaint();
         }
 

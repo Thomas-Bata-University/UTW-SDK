@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5647811e-30d0-48fc-98ed-9b1ac5d5cbca" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../HullMaker/Packages/Hull_Template/Editor/Content/Scenes/SampleScene.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HullMaker/Packages/Hull_Template/Editor/Content/Scenes/SampleScene.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HullMaker/Packages/Hull_Template/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../HullMaker/Packages/Hull_Template/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.InitialTemplate/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.InitialTemplate/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/NewScene.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/NewScene.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TemplateImporter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TemplateImporter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.InitialTemplate/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.InitialTemplate/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Other/CoreScripts/CreateProjectController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Other/CoreScripts/CreateProjectController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,12 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/OpenWindow.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PackageCheck.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.visualstudio@2.0.21/Editor/SolutionParser.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.settings-manager@2.0.1/Editor/SettingsGUILayout.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Mask.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.utw.hull_template@f9ad27098e/Editor/Content/Scripts/Data/MainData.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Other/CoreScripts/ProjectManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2a6c2bf2255f4beda040b401cc7fbbeb2d400/da/89658b69/GUIStyle.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2a6c2bf2255f4beda040b401cc7fbbeb2d400/e7/6a4e5b15/GUILayout.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9920ff0c944845d7b9f9a61ef1478edc94bc00/14/f251845c/EditorStyles.cs" root0="SKIP_HIGHLIGHTING" />
@@ -113,6 +100,7 @@
       <workItem from="1725819650403" duration="3154000" />
       <workItem from="1725986073603" duration="1593000" />
       <workItem from="1726249153145" duration="466000" />
+      <workItem from="1728316773553" duration="37000" />
     </task>
     <servers />
   </component>
