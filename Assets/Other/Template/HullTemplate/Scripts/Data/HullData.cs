@@ -1,7 +1,7 @@
 using UnityEngine;
 
-namespace Other.TurretTemplate.Scripts.Data {
-    public class TurretData : MonoBehaviour {
+namespace Other.Template.HullTemplate.Scripts.Data {
+    public class HullData : MonoBehaviour {
 
         public int mass = 1000;
         public Mesh mesh;

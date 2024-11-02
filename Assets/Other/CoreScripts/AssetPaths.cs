@@ -8,5 +8,7 @@ namespace Other.CoreScripts {
         public const string WEAPONRY = "Assets/Projects/Weaponry";
         public const string SUSPENSION = "Assets/Projects/Suspension";
 
+        public const string TEMPLATE = "Assets/Other/Template";
+
     }
 } //END

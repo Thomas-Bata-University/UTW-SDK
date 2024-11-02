@@ -10,6 +10,7 @@ namespace Other.CoreScripts {
         private static OpenProjectController _window;
         private const string MetadataPath = "OpenedProjectMetadata";
         public static bool IsOpenedProject = false;
+        public static ProjectManager.Metadata MetaData;
 
         private Vector2 _scrollPosition;
         private int _selectedTab = 0;
@@ -33,6 +34,7 @@ namespace Other.CoreScripts {
             IsOpenedProject = metadata is not null;
             if (IsOpenedProject) {
                 IsOpenedProject = true;
+                MetaData = metadata;
                 DisplayOpenedProject(metadata);
                 return;
             }
@@ -76,6 +78,7 @@ namespace Other.CoreScripts {
                 EditorPrefs.DeleteKey(MetadataPath);
                 IsOpenedProject = false;
                 ProjectManager.RemovePrefab(metadata);
+                MetaData = null;
                 Debug.Log($"Project {metadata.projectName} successfully closed.");
             }
 
@@ -111,7 +114,7 @@ namespace Other.CoreScripts {
                     if (GUILayout.Button("Open", GUILayout.Width(100))) {
                         string metadataPath = subFolder + METADATA;
                         OpenProject(metadataPath);
-                        ProjectManager.CreatePrefabWithMetadata(metadataPath);
+                        MetaData = ProjectManager.CreatePrefabWithMetadata(metadataPath);
                         Debug.Log($"Project {subFolder} successfully opened.");
                     }
 
@@ -174,6 +177,7 @@ namespace Other.CoreScripts {
 
         private void DeleteProject(string subFolder) {
             AssetDatabase.DeleteAsset(subFolder);
+            MetaData = null;
             Repaint();
         }
 

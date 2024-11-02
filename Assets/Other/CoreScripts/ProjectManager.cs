@@ -4,6 +4,7 @@ using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Profiling.Memory.Experimental;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
@@ -17,6 +18,7 @@ namespace Other.CoreScripts {
             File.WriteAllText(path, json);
 
             Debug.Log($"Metadata created to {path}");
+            OpenProjectController.MetaData = metadata;
 
             return path;
         }
@@ -27,8 +29,10 @@ namespace Other.CoreScripts {
             return JsonUtility.FromJson<Metadata>(json);
         }
 
-        public static void CreatePrefabWithMetadata(string metadataPath) {
-            CreatePrefab(GetMetadata(metadataPath).prefabPath);
+        public static Metadata CreatePrefabWithMetadata(string metadataPath) {
+            Metadata metadata = GetMetadata(metadataPath);
+            CreatePrefab(metadata.prefabPath);
+            return metadata;
         }
 
         public static void CreatePrefab(string prefabPath) {
@@ -57,15 +61,17 @@ namespace Other.CoreScripts {
 
             public string prefabName;
             public string prefabPath;
+            public string tankPart;
 
             public string created;
 
-            public Metadata(string prefabPath, string projectPath) {
+            public Metadata(string prefabPath, string projectPath, TankPart tankPart) {
                 this.projectName = Path.GetFileName(projectPath);
                 this.projectPath = projectPath;
                 this.prefabName = Path.GetFileName(prefabPath);
                 this.prefabPath = prefabPath;
                 this.created = DateTime.Now.ToString("yyyy MMMM dd", new CultureInfo("en-US"));
+                this.tankPart = tankPart.ToString();
             }
 
         }

@@ -40,28 +40,28 @@ namespace Other.CoreScripts {
         private void CreateButtons() {
             if (GUILayout.Button("HULL")) {
                 string[] foldersToCopy = { "Materials", "Prefabs" };
-                Create(foldersToCopy, HULL, "HullTemplate", "Hull");
+                Create(foldersToCopy, HULL, "HullTemplate", "Hull", TankPart.HULL);
             }
 
             GUILayout.Space(10);
 
             if (GUILayout.Button("TURRET")) {
                 string[] foldersToCopy = { "Materials", "Prefabs" };
-                Create(foldersToCopy, TURRET, "TurretTemplate", "Turret");
+                Create(foldersToCopy, TURRET, "TurretTemplate", "Turret", TankPart.TURRET);
             }
 
             GUILayout.Space(10);
 
             if (GUILayout.Button("WEAPONRY")) {
                 string[] foldersToCopy = { "Materials", "Prefabs" };
-                Create(foldersToCopy, WEAPONRY, "WeaponryTemplate", "Weaponry");
+                Create(foldersToCopy, WEAPONRY, "WeaponryTemplate", "Weaponry", TankPart.WEAPONRY);
             }
 
             GUILayout.Space(10);
 
             if (GUILayout.Button("SUSPENSION")) {
                 string[] foldersToCopy = { "Materials", "Prefabs" };
-                Create(foldersToCopy, SUSPENSION, "SuspensionTemplate", "Suspension");
+                Create(foldersToCopy, SUSPENSION, "SuspensionTemplate", "Suspension", TankPart.SUSPENSION);
             }
 
             GUILayout.FlexibleSpace();
@@ -71,24 +71,24 @@ namespace Other.CoreScripts {
             }
         }
 
-        private void Create(string[] foldersToCopy, string path, string folderName, string prefabName) {
+        private void Create(string[] foldersToCopy, string path, string folderName, string prefabName, TankPart tankPart) {
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             string selectedPath = EditorUtility.OpenFolderPanel("Select folder", path, "");
-            CopyPrefab(folderName, foldersToCopy, selectedPath, prefabName);
+            CopyPrefab(folderName, foldersToCopy, selectedPath, prefabName, tankPart);
         }
 
         #region Copy
 
-        private void CopyPrefab(string folderName, string[] foldersToCopy, string destPath, string prefabName) {
+        private void CopyPrefab(string folderName, string[] foldersToCopy, string destPath, string prefabName, TankPart tankPart) {
             if (string.IsNullOrEmpty(destPath)) return;
 
-            string basePath = Path.Combine("Assets", "Other", folderName);
+            string basePath = Path.Combine(TEMPLATE, folderName);
             CopyFolders(basePath, foldersToCopy, destPath);
 
             string relativePath = "Assets" + destPath.Substring(Application.dataPath.Length);
             string prefabPath = relativePath + "/Prefabs/" + prefabName;
             ProjectManager.CreatePrefab(prefabPath);
-            string metadataPath = ProjectManager.CreateMetadata(new ProjectManager.Metadata(prefabPath, relativePath));
+            string metadataPath = ProjectManager.CreateMetadata(new ProjectManager.Metadata(prefabPath, relativePath, tankPart));
             OpenProjectController.OpenProject(metadataPath);
             Close();
         }

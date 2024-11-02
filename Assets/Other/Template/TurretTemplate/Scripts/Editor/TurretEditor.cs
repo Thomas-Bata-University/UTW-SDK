@@ -1,14 +1,14 @@
 using Other.CoreScripts;
-using Other.HullTemplate.Scripts.Data;
+using Other.Template.TurretTemplate.Scripts.Data;
 using UnityEditor;
 using UnityEngine;
 
-namespace Other.HullTemplate.Scripts.Editor {
-    [CustomEditor(typeof(HullData))]
-    public class HullEditor : UnityEditor.Editor {
+namespace Other.Template.TurretTemplate.Scripts.Editor {
+    [CustomEditor(typeof(TurretData))]
+    public class TurretEditor : UnityEditor.Editor {
 
         //Child object
-        public GameObject hullVisual;
+        public GameObject turretVisual;
 
         private SerializedProperty _massProp;
         private SerializedProperty _meshProp;
@@ -18,7 +18,7 @@ namespace Other.HullTemplate.Scripts.Editor {
         private SerializedProperty _collidersProp;
 
         private void OnEnable() {
-            hullVisual = GameObject.FindWithTag(Tags.HULL_VISUAL);
+            turretVisual = GameObject.FindWithTag(Tags.TURRET_VISUAL);
 
             _massProp = serializedObject.FindProperty("mass");
             _meshProp = serializedObject.FindProperty("mesh");
@@ -57,7 +57,7 @@ namespace Other.HullTemplate.Scripts.Editor {
         }
 
         private void CreateMass() {
-            EditorGUILayout.IntSlider(_massProp, 1, 100000, new GUIContent("Mass", "Mass of the hull."));
+            EditorGUILayout.IntSlider(_massProp, 1, 100000, new GUIContent("Mass", "Mass of the turret."));
         }
 
         private void CreateMesh() {
@@ -142,7 +142,7 @@ namespace Other.HullTemplate.Scripts.Editor {
 
         private void Create() {
             //Set mesh
-            hullVisual.GetComponent<MeshFilter>().mesh = _meshProp.objectReferenceValue as Mesh;
+            turretVisual.GetComponent<MeshFilter>().mesh = _meshProp.objectReferenceValue as Mesh;
 
             //Set material
             Material[] materials = new Material [_numOfMatProp.intValue];
@@ -150,17 +150,17 @@ namespace Other.HullTemplate.Scripts.Editor {
                 materials[i] = _materialsProp.GetArrayElementAtIndex(i).objectReferenceValue as Material;
             }
 
-            hullVisual.GetComponent<MeshRenderer>().materials = materials;
+            turretVisual.GetComponent<MeshRenderer>().materials = materials;
 
             //Set collider
-            MeshCollider[] oldMeshColliders = hullVisual.GetComponents<MeshCollider>();
+            MeshCollider[] oldMeshColliders = turretVisual.GetComponents<MeshCollider>();
             for (int i = 0; i < oldMeshColliders.Length; i++) {
                 var oldCollider = oldMeshColliders[i];
                 EditorApplication.delayCall += () => DestroyImmediate(oldCollider);
             }
 
             for (int i = 0; i < _numOfColProp.intValue; i++) {
-                MeshCollider meshCollider = hullVisual.AddComponent<MeshCollider>();
+                MeshCollider meshCollider = turretVisual.AddComponent<MeshCollider>();
                 meshCollider.sharedMesh = _collidersProp.GetArrayElementAtIndex(i).objectReferenceValue as Mesh;
                 meshCollider.convex = true;
             }
