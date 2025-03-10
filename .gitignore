@@ -43,6 +43,7 @@
 **/*.mdb
 **/*.opendb
 **/*.VC.db
+**/.idea/
 
 # Unity3D generated meta files
 **/*.pidb.meta
