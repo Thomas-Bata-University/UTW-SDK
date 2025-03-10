@@ -41,7 +41,7 @@ namespace Other.CoreScripts {
                 task.CheckCompletion();
             }
 
-            GetWindow<TaskListWindow>().Repaint();
+            // GetWindow<TaskListWindow>().Repaint();
         }
 
         [MenuItem("UTW/Task list")]

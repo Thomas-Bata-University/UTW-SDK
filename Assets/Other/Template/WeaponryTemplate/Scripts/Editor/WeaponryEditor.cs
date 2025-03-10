@@ -1,15 +1,15 @@
 using Other.CoreScripts;
 using Other.Template.Core;
-using Other.Template.TurretTemplate.Scripts.Data;
+using Other.Template.WeaponryTemplate.Scripts.Data;
 using UnityEditor;
 using UnityEngine;
 
-namespace Other.Template.TurretTemplate.Scripts.Editor {
-    [CustomEditor(typeof(TurretData))]
-    public class TurretEditor : DefaultEditor {
+namespace Other.Template.WeaponryTemplate.Scripts.Editor {
+    [CustomEditor(typeof(WeaponryData))]
+    public class WeaponryEditor : DefaultEditor {
 
         private void OnEnable() {
-            visual = GameObject.FindWithTag(Tags.TURRET_VISUAL);
+            visual = GameObject.FindWithTag(Tags.WEAPONRY_VISUAL);
             
             FindDefaultProperties();
         }

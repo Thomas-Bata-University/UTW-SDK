@@ -37,30 +37,33 @@ namespace Other.CoreScripts {
                 StyleUtils.Style(13, EditorStyles.label));
         }
 
+        /// <summary>
+        /// Set which folders you want to copy -> foldersToCopy = { "Materials", "Prefabs" };
+        /// </summary>
         private void CreateButtons() {
             if (GUILayout.Button("HULL")) {
-                string[] foldersToCopy = { "Materials", "Prefabs" };
+                string[] foldersToCopy = { "Prefabs" };
                 Create(foldersToCopy, HULL, "HullTemplate", "Hull", TankPart.HULL);
             }
 
             GUILayout.Space(10);
 
             if (GUILayout.Button("TURRET")) {
-                string[] foldersToCopy = { "Materials", "Prefabs" };
+                string[] foldersToCopy = { "Prefabs" };
                 Create(foldersToCopy, TURRET, "TurretTemplate", "Turret", TankPart.TURRET);
             }
 
             GUILayout.Space(10);
 
             if (GUILayout.Button("WEAPONRY")) {
-                string[] foldersToCopy = { "Materials", "Prefabs" };
+                string[] foldersToCopy = { "Prefabs" };
                 Create(foldersToCopy, WEAPONRY, "WeaponryTemplate", "Weaponry", TankPart.WEAPONRY);
             }
 
             GUILayout.Space(10);
 
             if (GUILayout.Button("SUSPENSION")) {
-                string[] foldersToCopy = { "Materials", "Prefabs" };
+                string[] foldersToCopy = { "Prefabs" };
                 Create(foldersToCopy, SUSPENSION, "SuspensionTemplate", "Suspension", TankPart.SUSPENSION);
             }
 
