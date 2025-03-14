@@ -70,3 +70,5 @@
 
 # Visual Studio configuration
 **/.vsconfig
+
+**/Assets/Projects/*

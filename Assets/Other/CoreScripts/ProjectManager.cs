@@ -4,7 +4,6 @@ using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.Profiling.Memory.Experimental;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
@@ -36,14 +35,19 @@ namespace Other.CoreScripts {
         }
 
         public static void CreatePrefab(string prefabPath) {
-            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath + ".prefab");
+            string fullPath = prefabPath + ".prefab";
+            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(fullPath);
             PrefabUtility.InstantiatePrefab(prefab);
+            SetAssetBundle(fullPath);
             EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
         }
 
         public static void OverridePrefab(Metadata metadata) {
             GameObject prefab = GameObject.Find(metadata.prefabName);
-            PrefabUtility.ApplyPrefabInstance(prefab, InteractionMode.AutomatedAction);
+            string prefabPath = AssetDatabase.GetAssetPath(PrefabUtility.GetCorrespondingObjectFromSource(prefab));
+            GameObject prefabAsset = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+            CopyTransform(prefabAsset, prefab);
+            PrefabUtility.ApplyPrefabInstance(prefab, InteractionMode.UserAction);
             EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
         }
 
@@ -51,6 +55,26 @@ namespace Other.CoreScripts {
             GameObject prefab = GameObject.Find(metadata.prefabName);
             Object.DestroyImmediate(prefab);
             EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
+        }
+        
+        private static void SetAssetBundle(string assetPath) {
+            string bundleName = "default";
+
+            AssetImporter importer = AssetImporter.GetAtPath(assetPath);
+            if (importer != null && importer.assetBundleName != bundleName)
+            {
+                importer.assetBundleName = bundleName;
+                importer.SaveAndReimport();
+            }
+        }
+
+        private static void CopyTransform(GameObject prefabAsset, GameObject prefabInstance) {
+            Transform prefabTransform = prefabAsset.transform;
+            Transform instanceTransform = prefabInstance.transform;
+        
+            prefabTransform.position = instanceTransform.position;
+            prefabTransform.rotation = instanceTransform.rotation;
+            prefabTransform.localScale = instanceTransform.localScale;
         }
 
         [Serializable]
