@@ -1,0 +1,38 @@
+ManifestFileVersion: 0
+CRC: 4166304081
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0b750fabcd8177d4a2c92d6d39a744dc
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: e06983b1a8d467de97aebcc55d1c08c0
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 0b750fabcd8177d4a2c92d6d39a744dc
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 843a9e163d52ec743af7923d066616c3, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Projects/Hull/asd/Prefabs/Hull.prefab
+Dependencies: []
