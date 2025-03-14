@@ -37,7 +37,10 @@ namespace Editor.Core {
         public static void CreatePrefab(string prefabPath, string part) {
             string fullPath = prefabPath + ".prefab";
             GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(fullPath);
-            PrefabUtility.InstantiatePrefab(prefab);
+            GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+            instance.tag = Tags.UNTAGGED;
+            PrefabUtility.SaveAsPrefabAsset(instance, fullPath);
+            AssetDatabase.SaveAssets();
             SetAssetBundle(fullPath, part);
             EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
         }
@@ -59,7 +62,8 @@ namespace Editor.Core {
         
         private static void SetAssetBundle(string assetPath, string part) {
             string assetName = Path.GetFileNameWithoutExtension(assetPath);
-            string bundleName = part + "/" + assetName.ToLower();
+            // string bundleName = assetName.ToLower();
+            string bundleName = "default";
             
             AssetImporter importer = AssetImporter.GetAtPath(assetPath);
             if (importer != null && importer.assetBundleName != bundleName)
