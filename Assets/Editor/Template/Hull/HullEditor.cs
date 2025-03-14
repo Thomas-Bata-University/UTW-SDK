@@ -17,6 +17,8 @@ namespace Editor.Template.Hull {
             serializedObject.Update();
 
             CreateInspector();
+            LoadAssetBundles();
+            AssetBundle();
 
             serializedObject.ApplyModifiedProperties();
         }

@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using Editor.Core;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,6 +16,9 @@ namespace Editor.Template {
         protected SerializedProperty materialsProp;
         protected SerializedProperty numOfColProp;
         protected SerializedProperty collidersProp;
+        
+        private string[] assetBundleOptions;
+        private int selectedBundleIndex = 0;
 
         protected void FindDefaultProperties() {
             massProp = serializedObject.FindProperty("mass");
@@ -151,6 +157,64 @@ namespace Editor.Template {
                 meshCollider.sharedMesh = collidersProp.GetArrayElementAtIndex(i).objectReferenceValue as Mesh;
                 meshCollider.convex = true;
             }
+        }
+
+        protected void AssetBundle() {
+            if (visual?.transform.parent is null) return;
+
+            GameObject gameObject = visual.transform.parent.gameObject;
+            
+            string assetPath = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(gameObject);
+
+            if (!string.IsNullOrEmpty(assetPath))
+            {
+                AssetImporter importer = AssetImporter.GetAtPath(assetPath);
+                if (importer != null)
+                {
+                    EditorGUILayout.Space();
+                    EditorGUILayout.LabelField("AssetBundle Settings", EditorStyles.boldLabel);
+
+                    selectedBundleIndex = Array.IndexOf(assetBundleOptions, importer.assetBundleName);
+                    if (selectedBundleIndex < 0) selectedBundleIndex = 0;
+
+                    int newIndex = EditorGUILayout.Popup("AssetBundle", selectedBundleIndex, assetBundleOptions);
+                
+                    if (newIndex != selectedBundleIndex)
+                    {
+                        importer.assetBundleName = newIndex == 0 ? "" : assetBundleOptions[newIndex];
+                        importer.SaveAndReimport();
+                        OpenProjectController.MetaData.assetBundle = importer.assetBundleName;
+                        Debug.Log($"AssetBundle for {gameObject.name} changed to: {importer.assetBundleName}");
+                    }
+
+                    if (GUILayout.Button("Remove AssetBundle"))
+                    {
+                        importer.assetBundleName = "";
+                        importer.SaveAndReimport();
+                        Debug.Log($"AssetBundle removed from '{gameObject.name}'");
+                    }
+                }
+            }
+            else
+            {
+                EditorGUILayout.HelpBox("This object is not Prefab.", MessageType.Warning);
+            }
+        }
+        
+        protected void LoadAssetBundles()
+        {
+            // Načte všechny unikátní AssetBundle názvy v projektu
+            HashSet<string> bundleNames = new HashSet<string> { "None" }; // "None" jako výchozí hodnota
+            foreach (string assetPath in AssetDatabase.GetAllAssetPaths())
+            {
+                AssetImporter importer = AssetImporter.GetAtPath(assetPath);
+                if (importer != null && !string.IsNullOrEmpty(importer.assetBundleName))
+                {
+                    bundleNames.Add(importer.assetBundleName);
+                }
+            }
+
+            assetBundleOptions = new List<string>(bundleNames).ToArray();
         }
 
         #region Style

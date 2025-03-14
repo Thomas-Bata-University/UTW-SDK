@@ -90,7 +90,7 @@ namespace Editor.Core {
 
             string relativePath = "Assets" + destPath.Substring(Application.dataPath.Length);
             string prefabPath = relativePath + "/Prefabs/" + prefabName;
-            ProjectManager.CreatePrefab(prefabPath, tankPart.ToString());
+            ProjectManager.CreatePrefab(prefabPath, "default");
             string metadataPath = ProjectManager.CreateMetadata(new ProjectManager.Metadata(prefabPath, relativePath, tankPart));
             OpenProjectController.OpenProject(metadataPath);
             Close();

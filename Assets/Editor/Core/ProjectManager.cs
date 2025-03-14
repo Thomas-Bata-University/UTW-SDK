@@ -22,6 +22,10 @@ namespace Editor.Core {
             return path;
         }
 
+        public static void UpdateMetadata(Metadata metadata) {
+            CreateMetadata(metadata);
+        }
+
         public static Metadata GetMetadata(string path) {
             if (string.IsNullOrEmpty(path)) return null;
             string json = File.ReadAllText(path);
@@ -30,18 +34,18 @@ namespace Editor.Core {
 
         public static Metadata CreatePrefabWithMetadata(string metadataPath) {
             Metadata metadata = GetMetadata(metadataPath);
-            CreatePrefab(metadata.prefabPath, metadata.tankPart);
+            CreatePrefab(metadata.prefabPath, metadata.assetBundle);
             return metadata;
         }
 
-        public static void CreatePrefab(string prefabPath, string part) {
+        public static void CreatePrefab(string prefabPath, string name) {
             string fullPath = prefabPath + ".prefab";
             GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(fullPath);
             GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
             instance.tag = Tags.UNTAGGED;
             PrefabUtility.SaveAsPrefabAsset(instance, fullPath);
             AssetDatabase.SaveAssets();
-            SetAssetBundle(fullPath, part);
+            SetAssetBundle(fullPath, name);
             EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
         }
 
@@ -49,9 +53,12 @@ namespace Editor.Core {
             GameObject prefab = GameObject.Find(metadata.prefabName);
             string prefabPath = AssetDatabase.GetAssetPath(PrefabUtility.GetCorrespondingObjectFromSource(prefab));
             GameObject prefabAsset = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
-            CopyTransform(prefabAsset, prefab);
-            PrefabUtility.ApplyPrefabInstance(prefab, InteractionMode.UserAction);
+            string prefabPathAsset = AssetDatabase.GetAssetPath(prefabAsset);
+            CopyData(prefabAsset, prefab);
+            PrefabUtility.SaveAsPrefabAssetAndConnect(prefab, prefabPath, InteractionMode.AutomatedAction);
+            SetAssetBundle(prefabPathAsset, metadata.assetBundle);
             EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
+            UpdateMetadata(metadata);
         }
 
         public static void RemovePrefab(Metadata metadata) {
@@ -59,24 +66,20 @@ namespace Editor.Core {
             Object.DestroyImmediate(prefab);
             EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
         }
-        
-        private static void SetAssetBundle(string assetPath, string part) {
-            string assetName = Path.GetFileNameWithoutExtension(assetPath);
-            // string bundleName = assetName.ToLower();
-            string bundleName = "default";
-            
+
+        private static void SetAssetBundle(string assetPath, string name) {
+            Debug.Log(assetPath);
             AssetImporter importer = AssetImporter.GetAtPath(assetPath);
-            if (importer != null && importer.assetBundleName != bundleName)
-            {
-                importer.assetBundleName = bundleName;
+            if (importer != null && importer.assetBundleName != name) {
+                importer.assetBundleName = name;
                 importer.SaveAndReimport();
             }
         }
 
-        private static void CopyTransform(GameObject prefabAsset, GameObject prefabInstance) {
+        private static void CopyData(GameObject prefabAsset, GameObject prefabInstance) {
             Transform prefabTransform = prefabAsset.transform;
             Transform instanceTransform = prefabInstance.transform;
-        
+
             prefabTransform.position = instanceTransform.position;
             prefabTransform.rotation = instanceTransform.rotation;
             prefabTransform.localScale = instanceTransform.localScale;
@@ -91,6 +94,7 @@ namespace Editor.Core {
             public string prefabName;
             public string prefabPath;
             public string tankPart;
+            public string assetBundle;
 
             public string created;
 

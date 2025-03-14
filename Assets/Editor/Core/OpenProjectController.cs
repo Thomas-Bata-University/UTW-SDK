@@ -3,6 +3,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 using static Editor.Core.AssetPaths;
+using Debug = UnityEngine.Debug;
 
 namespace Editor.Core {
     public class OpenProjectController : EditorWindow {
@@ -31,9 +32,8 @@ namespace Editor.Core {
 
             string metadataPath = EditorPrefs.GetString(MetadataPath, "");
             ProjectManager.Metadata metadata = ProjectManager.GetMetadata(metadataPath);
-            IsOpenedProject = metadata is not null;
+            IsOpenedProject = metadata is not null; //TODO musim to lepe upravit, zjistit jak poznat ze je otevren projekt
             if (IsOpenedProject) {
-                IsOpenedProject = true;
                 MetaData = metadata;
                 DisplayOpenedProject(metadata);
                 return;
