@@ -4,7 +4,8 @@ namespace Editor.Core {
         HULL,
         TURRET,
         WEAPONRY,
-        SUSPENSION
+        SUSPENSION,
+        NONE
 
     }
 } //END

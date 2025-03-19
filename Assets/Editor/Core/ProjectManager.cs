@@ -96,6 +96,8 @@ namespace Editor.Core {
             public string tankPart;
             public string assetBundle;
 
+            public bool isMap;
+
             public string created;
 
             public Metadata(string prefabPath, string projectPath, TankPart tankPart) {
@@ -105,6 +107,7 @@ namespace Editor.Core {
                 this.prefabPath = prefabPath;
                 this.created = DateTime.Now.ToString("yyyy MMMM dd", new CultureInfo("en-US"));
                 this.tankPart = tankPart.ToString();
+                this.isMap = tankPart == TankPart.NONE;
             }
 
         }
