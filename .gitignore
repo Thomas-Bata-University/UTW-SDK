@@ -70,3 +70,6 @@
 
 # Visual Studio configuration
 **/.vsconfig
+
+**/Assets/Projects/*
+**/Assets/AssetBundles/*

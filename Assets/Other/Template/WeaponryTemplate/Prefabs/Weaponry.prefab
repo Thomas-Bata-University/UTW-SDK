@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 8121708989848331637}
   m_Layer: 0
   m_Name: Weaponry
-  m_TagString: Untagged
+  m_TagString: NoBundle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
