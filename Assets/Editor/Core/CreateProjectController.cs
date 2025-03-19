@@ -66,6 +66,13 @@ namespace Editor.Core {
                 string[] foldersToCopy = { "Prefabs" };
                 Create(foldersToCopy, SUSPENSION, "SuspensionTemplate", "Suspension", TankPart.SUSPENSION);
             }
+            
+            GUILayout.Space(10);
+            
+            if (GUILayout.Button("MAP")) {
+                string[] foldersToCopy = { "Prefabs" };
+                Create(foldersToCopy, MAP, "MapTemplate", "Map", TankPart.NONE);
+            }
 
             GUILayout.FlexibleSpace();
             if (GUILayout.Button("Open project", GUILayout.Width(200))) {

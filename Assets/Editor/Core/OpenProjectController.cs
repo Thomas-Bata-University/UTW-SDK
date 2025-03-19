@@ -15,8 +15,8 @@ namespace Editor.Core {
 
         private Vector2 _scrollPosition;
         private int _selectedTab = 0;
-        private string[] _tabNames = { "Hull", "Turret", "Weaponry", "Suspension" };
-        private string[] _folderPaths = { HULL, TURRET, WEAPONRY, SUSPENSION };
+        private string[] _tabNames = { "Hull", "Turret", "Weaponry", "Suspension", "Maps" };
+        private string[] _folderPaths = { HULL, TURRET, WEAPONRY, SUSPENSION, MAP };
         private Dictionary<string, string[]> _folderContents = new();
 
         [MenuItem("UTW/Open project", false, 3)]
@@ -65,6 +65,12 @@ namespace Editor.Core {
             GUILayout.Space(10);
             GUILayout.Label(metadata.projectName, StyleUtils.Style(25, EditorStyles.boldLabel));
             GUILayout.Space(20);
+            
+            if (metadata.isMap)
+                //TODO tady si zavolej svou metodu ze sve tridy
+                Debug.Log("franto pridej si tu co chces");
+            else
+                Debug.Log("NA TOTO MI NESAHEJ");
 
             GUILayout.FlexibleSpace();
             GUILayout.BeginHorizontal(GUILayout.Width(position.width));
