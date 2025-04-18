@@ -65,12 +65,6 @@ namespace Editor.Core {
             GUILayout.Space(10);
             GUILayout.Label(metadata.projectName, StyleUtils.Style(25, EditorStyles.boldLabel));
             GUILayout.Space(20);
-            
-            if (metadata.isMap)
-                //TODO tady si zavolej svou metodu ze sve tridy
-                Debug.Log("franto pridej si tu co chces");
-            else
-                Debug.Log("NA TOTO MI NESAHEJ");
 
             GUILayout.FlexibleSpace();
             GUILayout.BeginHorizontal(GUILayout.Width(position.width));
