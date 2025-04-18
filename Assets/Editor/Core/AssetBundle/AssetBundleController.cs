@@ -1,8 +1,7 @@
-using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Core {
+namespace Editor.Core.AssetBundle {
     public class AssetBundleController : EditorWindow {
 
         private static AssetBundleController _window;
@@ -14,20 +13,6 @@ namespace Editor.Core {
 
         private void OnGUI() {
             CreateButton();
-        }
-
-        private static void BuildAllAssetBundles() {
-            string bundleDirectory = AssetPaths.ASSET_BUNDLE;
-
-            if (!Directory.Exists(bundleDirectory)) {
-                Directory.CreateDirectory(bundleDirectory);
-            }
-
-            BuildPipeline.BuildAssetBundles(bundleDirectory, BuildAssetBundleOptions.None,
-                BuildTarget.StandaloneWindows);
-
-            AssetDatabase.Refresh();
-            Debug.Log("AssetBundles successfully generated.");
         }
 
         private void CreateButton() {
@@ -55,7 +40,10 @@ namespace Editor.Core {
             if (GUILayout.Button("Generate AssetBundles", buttonStyle,
                     GUILayout.Width(position.width - borderThickness * 2),
                     GUILayout.Height(position.height - borderThickness * 2))) {
-                BuildAllAssetBundles();
+                if (AssetBundleValidator.Validate()) {
+                    Debug.Log("Validations successful, starting AssetBundle generation.");
+                    AssetBundleBuilder.Build();
+                }
             }
 
             GUILayout.Space(borderThickness);
