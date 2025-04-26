@@ -1,4 +1,4 @@
-namespace Other.Template.WeaponryTemplate.Weaponry.Data {
+namespace Other.Template.WeaponryTemplate.Data {
     public class WeaponryData : DefaultData {
 
     }

@@ -66,7 +66,7 @@ namespace Editor.Core {
             GUILayout.Space(20);
             
             //Show tasks
-            TaskListWindow.DrawTasks();
+            TaskListWindow.DrawTasks(metadata);
 
             GUILayout.FlexibleSpace();
             GUILayout.BeginHorizontal(GUILayout.Width(position.width));
@@ -81,6 +81,7 @@ namespace Editor.Core {
                 IsOpenedProject = false;
                 ProjectManager.RemovePrefab(metadata);
                 MetaData = null;
+                TaskListWindow.tasks = null;
                 Debug.Log($"Project {metadata.projectName} successfully closed.");
             }
 

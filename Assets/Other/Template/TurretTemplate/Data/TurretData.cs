@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace Other.Template.TurretTemplate.Data {
-    public class TurretData : MonoBehaviour {
+    public class TurretData : DefaultData {
 
     }
 } //END

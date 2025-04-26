@@ -1,6 +1,6 @@
 using Editor.Core;
 using Editor.Template;
-using Other.Template.WeaponryTemplate.Weaponry.Data;
+using Other.Template.WeaponryTemplate.Data;
 using UnityEditor;
 using UnityEngine;
 

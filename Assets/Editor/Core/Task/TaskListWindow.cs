@@ -5,25 +5,25 @@ using UnityEngine;
 namespace Editor.Core.Task {
     public class TaskListWindow : EditorWindow {
 
-        private static List<CoreTask> _tasks;
+        public static List<CoreTask> tasks;
 
         static TaskListWindow() {
             EditorApplication.update += CheckTasks;
         }
 
         private static void CheckTasks() {
-            if (_tasks == null) return;
+            if (tasks == null) return;
 
-            foreach (var task in _tasks) {
+            foreach (var task in tasks) {
                 task.CheckCompletion();
             }
         }
 
-        public static void DrawTasks() {
-            if (_tasks == null)
-                _tasks = TaskConfig.GetTaskConfig();
+        public static void DrawTasks(ProjectManager.Metadata metadata) {
+            if (tasks == null)
+                tasks = TaskConfig.GetTaskConfig(metadata);
 
-            if (_tasks == null || _tasks.Count == 0) {
+            if (tasks == null || tasks.Count == 0) {
                 GUILayout.Label("No tasks available.");
                 return;
             }
@@ -32,13 +32,13 @@ namespace Editor.Core.Task {
 
             int completedTasks = 0;
 
-            foreach (var task in _tasks) {
+            foreach (var task in tasks) {
                 task.CheckCompletion();
                 if (task.IsCompleted) completedTasks++;
                 DrawTaskRow(task);
             }
 
-            DrawFooter(completedTasks, _tasks.Count);
+            DrawFooter(completedTasks, tasks.Count);
         }
 
         private static void DrawHeader() {

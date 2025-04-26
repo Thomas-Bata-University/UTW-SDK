@@ -6,13 +6,8 @@ using UnityEngine;
 namespace Editor.Core.Task {
     public class TaskConfig {
 
-        public static List<CoreTask> GetTaskConfig() {
-            if (!OpenProjectController.IsOpenedProject) {
-                Debug.LogWarning("No opened project. Cannot provide scene tasks.");
-                return new List<CoreTask>();
-            }
-
-            TankPart part = (TankPart)Enum.Parse(typeof(TankPart), OpenProjectController.MetaData.tankPart);
+        public static List<CoreTask> GetTaskConfig(ProjectManager.Metadata metadata) {
+            TankPart part = (TankPart)Enum.Parse(typeof(TankPart), metadata.tankPart);
             return GetConfig(part)
                 .Where(d => d.TaskCondition != null)
                 .ToList();
