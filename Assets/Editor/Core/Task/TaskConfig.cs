@@ -33,11 +33,12 @@ namespace Editor.Core.Task {
             return part switch {
                 TankPart.HULL => new List<CoreTask> {
                     CreateCoreTask(Tags.HULL_VISUAL, "hull"),
-                    CreateCountedTask(Tags.PLATES, 5, "Create plates", "There must be at least 5 plate objects.")
+                    CreatePlateTask(Tags.PLATES, 5, "Create plates", "There must be at least 5 plate objects."),
+                    CreateMountPointTask(Tags.MOUNT_POINT, "turret")
                     //TODO can add more tasks and validations
                 },
                 TankPart.TURRET => new List<CoreTask> {
-                    CreateCoreTask(Tags.TURRET_VISUAL, "turret")
+                    CreateCoreTask(Tags.TURRET_VISUAL, "turret"),
                 },
                 TankPart.WEAPONRY => new List<CoreTask> {
                     CreateCoreTask(Tags.WEAPONRY_VISUAL, "weaponry"),
@@ -56,10 +57,16 @@ namespace Editor.Core.Task {
                 .Any(t => t.CompareTag(tag));
         }
 
-        private static bool HasTaggedCount(GameObject root, string tag, int required) {
+        private static bool HasTaggedCountGt(GameObject root, string tag, int required) {
             int count = root.GetComponentsInChildren<Transform>(true)
                 .Count(t => t.CompareTag(tag));
             return count >= required;
+        }
+
+        private static bool HasTaggedCountEq(GameObject root, string tag, int required) {
+            int count = root.GetComponentsInChildren<Transform>(true)
+                .Count(t => t.CompareTag(tag));
+            return count == required;
         }
 
         private static CoreTask CreateCoreTask(string tag, string partName) {
@@ -72,7 +79,7 @@ namespace Editor.Core.Task {
             };
         }
 
-        private static CoreTask CreateCountedTask(string tag, int required, string taskDescription,
+        private static CoreTask CreatePlateTask(string tag, int required, string taskDescription,
             string validationDescription) {
             return new CoreTask {
                 TaskDescription = taskDescription,
@@ -80,7 +87,32 @@ namespace Editor.Core.Task {
                 RequiredCount = required,
                 TaskCondition = () => GameObject.FindGameObjectsWithTag(tag).Length >= required,
                 SceneObjectCounter = () => GameObject.FindGameObjectsWithTag(tag).Length,
-                ValidationCondition = p => HasTaggedCount(p, tag, required)
+                ValidationCondition = p => HasTaggedCountGt(p, tag, required),
+                
+                OptionalAction = () => {
+                    PrefabCreator.CreatePlate(
+                        AssetPaths.TEMPLATE + "/PlateTemplate/Prefabs/Plate.prefab", "armor_plate", tag);
+                },
+                OptionalActionLabel = "Create"
+            };
+        }
+
+        private static CoreTask CreateMountPointTask(string tag, string mountPointName) {
+            return new CoreTask {
+                TaskDescription = $"Add {mountPointName} Mount Point",
+                ValidationDescription = $"There must be just 1 {mountPointName} Mount Point.",
+                RequiredCount = 1,
+                TaskCondition = () => GameObject.FindGameObjectsWithTag(tag).Length == 1,
+                SceneObjectCounter = () => GameObject.FindGameObjectsWithTag(tag).Length,
+                ValidationCondition = p => HasTaggedCountEq(p, tag, 1),
+
+                OptionalAction = () => {
+                    PrefabCreator.CreateMountPoint(
+                        AssetPaths.TEMPLATE + "/MountPoint/MountPoint.prefab",
+                        mountPointName + "_MountPoint",
+                        tag);
+                },
+                OptionalActionLabel = "Create"
             };
         }
 

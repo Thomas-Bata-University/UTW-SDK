@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.IO;
+using Editor.Core.Task;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static Editor.Core.AssetPaths;
 using Debug = UnityEngine.Debug;
 
@@ -22,9 +24,6 @@ namespace Editor.Core {
         [MenuItem("UTW/Open project", false, 3)]
         public static void ShowWindow() {
             _window = GetWindow<OpenProjectController>("Open project");
-
-            StyleUtils.SetSize(_window, new Vector2(700, 325));
-            StyleUtils.SetMiddle(_window);
         }
 
         private void OnGUI() {
@@ -65,6 +64,9 @@ namespace Editor.Core {
             GUILayout.Space(10);
             GUILayout.Label(metadata.projectName, StyleUtils.Style(25, EditorStyles.boldLabel));
             GUILayout.Space(20);
+            
+            //Show tasks
+            TaskListWindow.DrawTasks();
 
             GUILayout.FlexibleSpace();
             GUILayout.BeginHorizontal(GUILayout.Width(position.width));
@@ -140,7 +142,6 @@ namespace Editor.Core {
         private void CreateButton() {
             if (GUILayout.Button("Create new project", GUILayout.Width(200))) {
                 CreateProjectController.ShowWindow();
-                Close();
             }
         }
 

@@ -36,6 +36,9 @@ namespace Editor.Core.Task {
         public Func<int> SceneObjectCounter;
         public Func<GameObject, bool> ValidationCondition;
 
+        public Action OptionalAction;
+        public string OptionalActionLabel;
+
         /// <summary>
         /// Checks task completion in scene context.
         /// </summary>
@@ -50,7 +53,6 @@ namespace Editor.Core.Task {
             }
             else {
                 IsCompleted = false;
-                CurrentCount = 0;
             }
         }
 

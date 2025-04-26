@@ -17,41 +17,31 @@ namespace Editor.Core.Task {
             foreach (var task in _tasks) {
                 task.CheckCompletion();
             }
-
-            // Optional repaint
-            // GetWindow<TaskListWindow>()?.Repaint();
         }
 
-        [MenuItem("UTW/Task list")]
-        public static void ShowWindow() {
-            GetWindow<TaskListWindow>("To-Do");
-        }
+        public static void DrawTasks() {
+            if (_tasks == null)
+                _tasks = TaskConfig.GetTaskConfig();
 
-        private void OnGUI() {
-            if (!OpenProjectController.IsOpenedProject) {
-                GUILayout.Label("No project opened.");
+            if (_tasks == null || _tasks.Count == 0) {
+                GUILayout.Label("No tasks available.");
                 return;
             }
 
-            EditorGUILayout.Space();
-
-            _tasks = TaskConfig.GetTaskConfig();
             DrawHeader();
 
             int completedTasks = 0;
 
             foreach (var task in _tasks) {
                 task.CheckCompletion();
-
                 if (task.IsCompleted) completedTasks++;
-
                 DrawTaskRow(task);
             }
 
             DrawFooter(completedTasks, _tasks.Count);
         }
 
-        private void DrawHeader() {
+        private static void DrawHeader() {
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Description", EditorStyles.boldLabel);
             EditorGUILayout.LabelField("State", EditorStyles.boldLabel, GUILayout.Width(50));
@@ -60,15 +50,24 @@ namespace Editor.Core.Task {
             EditorGUILayout.Space();
         }
 
-        private void DrawTaskRow(CoreTask task) {
+        private static void DrawTaskRow(CoreTask task) {
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField(task.TaskDescription);
+
             EditorGUILayout.LabelField($"{task.CurrentCount}/{task.RequiredCount}", GUILayout.Width(50));
-            EditorGUILayout.Toggle(task.IsCompleted, GUILayout.Width(70));
+            EditorGUILayout.Toggle(task.IsCompleted, GUILayout.Width(50));
+
+            if (task.OptionalAction != null) {
+                if (GUILayout.Button(task.OptionalActionLabel ?? "Action", GUILayout.Width(80))) {
+                    task.OptionalAction.Invoke();
+                }
+            }
+
             EditorGUILayout.EndHorizontal();
         }
 
-        private void DrawFooter(int completed, int total) {
+
+        private static void DrawFooter(int completed, int total) {
             GUILayout.FlexibleSpace();
 
             GUILayout.BeginHorizontal();

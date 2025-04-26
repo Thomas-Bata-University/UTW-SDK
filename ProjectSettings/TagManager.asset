@@ -10,6 +10,8 @@ TagManager:
   - WeaponryVisual
   - SuspensionVisual
   - NoBundle
+  - MountPoint
+  - PlateParent
   layers:
   - Default
   - TransparentFX
