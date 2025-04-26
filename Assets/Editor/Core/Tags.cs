@@ -10,6 +10,7 @@ namespace Editor.Core {
         public const string NO_BUNDLE = "NoBundle";
         public const string UNTAGGED = "Untagged";
         public const string MOUNT_POINT = "MountPoint";
+        public const string INTERNAL_MODULE = "InternalModule";
 
     }
 } //END

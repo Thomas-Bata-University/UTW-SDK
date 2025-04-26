@@ -34,8 +34,8 @@ namespace Editor.Core.Task {
                 TankPart.HULL => new List<CoreTask> {
                     CreateCoreTask(Tags.HULL_VISUAL, "hull"),
                     CreatePlateTask(Tags.PLATES, 5, "Create plates", "There must be at least 5 plate objects."),
-                    CreateMountPointTask(Tags.MOUNT_POINT, "turret")
-                    //TODO can add more tasks and validations
+                    CreateMountPointTask(Tags.MOUNT_POINT, "turret"),
+                    CreateInternalModuleTask(Tags.INTERNAL_MODULE, "crew")
                 },
                 TankPart.TURRET => new List<CoreTask> {
                     CreateCoreTask(Tags.TURRET_VISUAL, "turret"),
@@ -91,7 +91,8 @@ namespace Editor.Core.Task {
                 
                 OptionalAction = () => {
                     PrefabCreator.CreatePlate(
-                        AssetPaths.TEMPLATE + "/PlateTemplate/Prefabs/Plate.prefab", "armor_plate", tag);
+                        AssetPaths.TEMPLATE + "/PlateTemplate/Prefabs/Plate.prefab", 
+                        "armor_plate", tag);
                 },
                 OptionalActionLabel = "Create"
             };
@@ -99,7 +100,7 @@ namespace Editor.Core.Task {
 
         private static CoreTask CreateMountPointTask(string tag, string mountPointName) {
             return new CoreTask {
-                TaskDescription = $"Add {mountPointName} Mount Point",
+                TaskDescription = $"Create {mountPointName} Mount Point",
                 ValidationDescription = $"There must be just 1 {mountPointName} Mount Point.",
                 RequiredCount = 1,
                 TaskCondition = () => GameObject.FindGameObjectsWithTag(tag).Length == 1,
@@ -109,8 +110,25 @@ namespace Editor.Core.Task {
                 OptionalAction = () => {
                     PrefabCreator.CreateMountPoint(
                         AssetPaths.TEMPLATE + "/MountPoint/MountPoint.prefab",
-                        mountPointName + "_MountPoint",
-                        tag);
+                        mountPointName + "_MountPoint", tag);
+                },
+                OptionalActionLabel = "Create"
+            };
+        }
+        
+        private static CoreTask CreateInternalModuleTask(string tag, string internalModuleName) {
+            return new CoreTask {
+                TaskDescription = $"Create {internalModuleName} Internal Module",
+                ValidationDescription = $"There must be just 1 {internalModuleName} InternalModule.",
+                RequiredCount = 1,
+                TaskCondition = () => GameObject.FindGameObjectsWithTag(tag).Length == 1,
+                SceneObjectCounter = () => GameObject.FindGameObjectsWithTag(tag).Length,
+                ValidationCondition = p => HasTaggedCountEq(p, tag, 1),
+
+                OptionalAction = () => {
+                    PrefabCreator.CreateMountPoint(
+                        AssetPaths.TEMPLATE + "/InternalModule/InternalModule.prefab",
+                        internalModuleName + "_InternalModule", tag);
                 },
                 OptionalActionLabel = "Create"
             };

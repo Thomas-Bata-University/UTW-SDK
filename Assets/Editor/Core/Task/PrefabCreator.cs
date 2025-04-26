@@ -10,6 +10,11 @@ namespace Editor.Core.Task {
             var parent = GetFirstRootObject();
             CreatePrefab(prefabPath, newName, tag, parent, "mount point");
         }
+        
+        public static void CreateInternalModule(string prefabPath, string newName, string tag) {
+            var parent = GetFirstRootObject();
+            CreatePrefab(prefabPath, newName, tag, parent, "internal module");
+        }
 
         public static void CreatePlate(string prefabPath, string newName, string tag) {
             var parent = GameObject.FindGameObjectWithTag(Tags.PLATE_PARENT);

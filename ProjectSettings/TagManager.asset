@@ -12,6 +12,7 @@ TagManager:
   - NoBundle
   - MountPoint
   - PlateParent
+  - InternalModule
   layers:
   - Default
   - TransparentFX
