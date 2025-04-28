@@ -1,4 +1,4 @@
-namespace Editor.Core {
+namespace Editor.Const {
     public abstract class AssetPaths {
 
         public const string METADATA = "/metadata.json";

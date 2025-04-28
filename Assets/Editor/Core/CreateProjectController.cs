@@ -1,7 +1,8 @@
 using System.IO;
+using Editor.Enums;
 using UnityEditor;
 using UnityEngine;
-using static Editor.Core.AssetPaths;
+using static Editor.Const.AssetPaths;
 
 namespace Editor.Core {
     public class CreateProjectController : EditorWindow {

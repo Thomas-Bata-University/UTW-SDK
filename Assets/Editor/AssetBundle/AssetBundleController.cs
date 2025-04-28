@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Core.AssetBundle {
+namespace Editor.AssetBundle {
     public class AssetBundleController : EditorWindow {
 
         private static AssetBundleController _window;

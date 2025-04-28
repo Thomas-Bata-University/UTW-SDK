@@ -1,4 +1,4 @@
-using Editor.Core;
+using Editor.Const;
 using Other.Template.HullTemplate.Data;
 using UnityEditor;
 using UnityEngine;
@@ -10,15 +10,16 @@ namespace Editor.Template.Hull {
         private void OnEnable() {
             visual = GameObject.FindWithTag(Tags.HULL_VISUAL);
 
-            FindDefaultProperties();
+            RegisterPart(visual);
+            
+            LoadAssetBundles();
         }
 
         public override void OnInspectorGUI() {
             serializedObject.Update();
 
             CreateInspector();
-            LoadAssetBundles();
-            AssetBundle();
+            AssetBundle(visual);
 
             serializedObject.ApplyModifiedProperties();
         }

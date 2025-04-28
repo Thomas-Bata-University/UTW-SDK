@@ -1,4 +1,4 @@
-namespace Editor.Core {
+namespace Editor.Enums {
     public enum TankPart {
 
         HULL,

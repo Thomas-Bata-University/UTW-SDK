@@ -10,9 +10,14 @@ TagManager:
   - WeaponryVisual
   - SuspensionVisual
   - NoBundle
-  - MountPoint
   - PlateParent
   - InternalModule
+  - HullMountPoint
+  - TurretMountPoint
+  - CannonMountPoint
+  - SuspensionMountPoint
+  - MountPoint
+  - BarrelVisual
   layers:
   - Default
   - TransparentFX

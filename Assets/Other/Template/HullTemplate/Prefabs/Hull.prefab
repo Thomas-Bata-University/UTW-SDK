@@ -169,16 +169,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 843a9e163d52ec743af7923d066616c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 1000
-  mesh: {fileID: 4300000, guid: 868cb02b8f282114d9eb5cefdf00d763, type: 2}
-  numOfMat: 2
-  materials:
+  Mass: 1000
+  Mesh: {fileID: 4300000, guid: 868cb02b8f282114d9eb5cefdf00d763, type: 2}
+  NumOfMat: 2
+  Materials:
   - {fileID: 2100000, guid: 18b8877f9bfef284dab1ee73692e320c, type: 2}
   - {fileID: 2100000, guid: 72c05c22ea03f9a43976303ea297e20c, type: 2}
-  numOfCol: 2
-  colliders:
+  NumOfCol: 1
+  Colliders:
   - {fileID: 4300000, guid: b8a62f8ca6ddf034987dd35a06a02710, type: 2}
-  - {fileID: 4300000, guid: f96ed259f700b9f4ebfbae5f570d57d2, type: 2}
 --- !u!1 &863395036908603607
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,9 +312,9 @@ GameObject:
   - component: {fileID: 2950944405738734211}
   - component: {fileID: 1087385134265218633}
   m_Layer: 0
-  m_Name: MountPoint
-  m_TagString: MountPoint
-  m_Icon: {fileID: 0}
+  m_Name: turret_mountPoint
+  m_TagString: TurretMountPoint
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1535,8 +1534,7 @@ GameObject:
   - component: {fileID: 9127768100933672682}
   - component: {fileID: 7724183249247038827}
   - component: {fileID: 257162254739664227}
-  - component: {fileID: 4038858332464065356}
-  - component: {fileID: 6957568891290730396}
+  - component: {fileID: 3800217009464306293}
   m_Layer: 0
   m_Name: Graphic
   m_TagString: HullVisual
@@ -1610,7 +1608,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4038858332464065356
+--- !u!64 &3800217009464306293
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1632,25 +1630,3 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: b8a62f8ca6ddf034987dd35a06a02710, type: 2}
---- !u!64 &6957568891290730396
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8219405826131029550}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: f96ed259f700b9f4ebfbae5f570d57d2, type: 2}

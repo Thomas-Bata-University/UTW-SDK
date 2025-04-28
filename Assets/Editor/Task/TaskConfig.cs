@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Editor.Const;
+using Editor.Core;
+using Editor.Enums;
 using UnityEngine;
 
-namespace Editor.Core.Task {
+namespace Editor.Task {
     public class TaskConfig {
 
         public static List<CoreTask> GetTaskConfig(ProjectManager.Metadata metadata) {
@@ -27,19 +30,25 @@ namespace Editor.Core.Task {
         public static List<CoreTask> GetConfig(TankPart part) {
             return part switch {
                 TankPart.HULL => new List<CoreTask> {
-                    CreateCoreTask(Tags.HULL_VISUAL, "hull"),
+                    CreateCoreTask(Tags.HULL_VISUAL, "Hull"),
                     CreatePlateTask(Tags.PLATES, 5, "Create plates", "There must be at least 5 plate objects."),
-                    CreateMountPointTask(Tags.MOUNT_POINT, "turret"),
+                    CreateMountPointTask(Tags.TURRET_MOUNT_POINT, "turret"),
                     CreateInternalModuleTask(Tags.INTERNAL_MODULE, "crew")
                 },
                 TankPart.TURRET => new List<CoreTask> {
-                    CreateCoreTask(Tags.TURRET_VISUAL, "turret"),
+                    CreateCoreTask(Tags.TURRET_VISUAL, "Turret"),
+                    CreatePlateTask(Tags.PLATES, 5, "Create plates", "There must be at least 5 plate objects."),
+                    CreateMountPointTask(Tags.CANNON_MOUNT_POINT, "cannon"),
+                    CreateMountPointTask(Tags.HULL_MOUNT_POINT, "hull"),
+                    CreateInternalModuleTask(Tags.INTERNAL_MODULE, "crew")
                 },
                 TankPart.WEAPONRY => new List<CoreTask> {
-                    CreateCoreTask(Tags.WEAPONRY_VISUAL, "weaponry"),
+                    CreateCoreTask(Tags.WEAPONRY_VISUAL, "Cannon"),
+                    CreateCoreTask(Tags.TURRET_MOUNT_POINT, "Barrel"),
+                    CreateMountPointTask(Tags.TURRET_MOUNT_POINT, "turret"),
                 },
                 TankPart.SUSPENSION => new List<CoreTask> {
-                    CreateCoreTask(Tags.SUSPENSION_VISUAL, "suspension"),
+                    CreateCoreTask(Tags.SUSPENSION_VISUAL, "Suspension"),
                 },
                 _ => new List<CoreTask>()
             };

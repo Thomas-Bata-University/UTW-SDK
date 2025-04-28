@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Editor.Core.Task {
+namespace Editor.Task {
     /// <summary>
     /// Represents a validation task for either scene or prefab context.
     /// </summary>

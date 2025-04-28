@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Editor.Core;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Core.Task {
+namespace Editor.Task {
     public class TaskListWindow : EditorWindow {
 
         public static List<CoreTask> tasks;

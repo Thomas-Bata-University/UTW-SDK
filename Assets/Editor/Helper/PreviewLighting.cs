@@ -10,10 +10,10 @@ namespace Editor.Helper {
         private static GameObject hiddenLight;
 
         static PrefabPreviewLightingSetup() {
-            EditorApplication.update += EnsureHiddenLight;
+            EditorApplication.delayCall += EnsureHiddenLight;
         }
 
-        static void EnsureHiddenLight() {
+        private static void EnsureHiddenLight() {
             if (hiddenLight == null) {
                 hiddenLight = GameObject.Find(HiddenLightName);
 
@@ -34,6 +34,7 @@ namespace Editor.Helper {
                 RenderSettings.ambientMode = AmbientMode.Flat;
                 RenderSettings.ambientLight = new Color(0.47f, 0.47f, 0.47f); // #787878
                 RenderSettings.defaultReflectionMode = DefaultReflectionMode.Skybox;
+                RenderSettings.customReflectionTexture = null;
                 RenderSettings.reflectionIntensity = 0.5f;
             }
 

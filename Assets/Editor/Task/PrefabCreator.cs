@@ -1,9 +1,11 @@
 using System.Linq;
+using Editor.Const;
+using Editor.Helper;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Editor.Core.Task {
+namespace Editor.Task {
     public static class PrefabCreator {
 
         public static void CreateMountPoint(string prefabPath, string newName, string tag) {
@@ -48,6 +50,7 @@ namespace Editor.Core.Task {
 
             if (parent != null) {
                 instance.transform.SetParent(parent.transform, true);
+                IconSetter.SetIcon(instance);
                 Debug.Log($"Created {instance.name} under parent: {parent.name}");
             }
             else {

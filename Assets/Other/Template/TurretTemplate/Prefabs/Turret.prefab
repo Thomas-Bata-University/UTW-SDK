@@ -33,6 +33,7 @@ Transform:
   - {fileID: 9127768100933672682}
   - {fileID: 3678484278973874357}
   - {fileID: 7287244429736680482}
+  - {fileID: 6650339916949811744}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5128005118605016169
@@ -47,13 +48,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20db86fffa094b64e8b663f3fb5e1a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 1000
-  mesh: {fileID: 4300000, guid: 11bc52118e2c98b49954847b105fc17f, type: 2}
-  numOfMat: 1
-  materials:
-  - {fileID: 2100000, guid: afb9ff9f155118b4a86854799604feb2, type: 2}
-  numOfCol: 1
-  colliders:
+  Mass: 1000
+  Mesh: {fileID: 4300000, guid: 11bc52118e2c98b49954847b105fc17f, type: 2}
+  NumOfMat: 1
+  Materials:
+  - {fileID: 2100000, guid: d64a2386a22ae5147928ce9fad212b11, type: 2}
+  NumOfCol: 1
+  Colliders:
   - {fileID: 4300000, guid: 5466581571c570c4689f78af7dc13f88, type: 2}
 --- !u!1 &2097685527237099882
 GameObject:
@@ -98,9 +99,9 @@ GameObject:
   - component: {fileID: 5948874291526833031}
   - component: {fileID: 8460666039204177741}
   m_Layer: 0
-  m_Name: MountPoint
-  m_TagString: MountPoint
-  m_Icon: {fileID: 0}
+  m_Name: cannon_mountPoint
+  m_TagString: CannonMountPoint
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -169,6 +170,89 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7956840934801250950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6650339916949811744}
+  - component: {fileID: 7818415667872852252}
+  - component: {fileID: 5165406473695279861}
+  m_Layer: 0
+  m_Name: hull_mountPoint
+  m_TagString: HullMountPoint
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6650339916949811744
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7956840934801250950}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.602, z: 0}
+  m_LocalScale: {x: 10, y: 9.999999, z: 9.999999}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 5572585535799788146}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!33 &7818415667872852252
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7956840934801250950}
+  m_Mesh: {fileID: 2534964839176971238, guid: 0fadbd6f96df78d4aa86c6c854f612b4, type: 3}
+--- !u!23 &5165406473695279861
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7956840934801250950}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 0bf11922eaf03914bbb2eb15363dcd91, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &8219405826131029550
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +264,7 @@ GameObject:
   - component: {fileID: 9127768100933672682}
   - component: {fileID: 7724183249247038827}
   - component: {fileID: 257162254739664227}
-  - component: {fileID: 4906248248694683163}
+  - component: {fileID: 5904037343671472505}
   m_Layer: 0
   m_Name: Graphic
   m_TagString: TurretVisual
@@ -231,7 +315,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: afb9ff9f155118b4a86854799604feb2, type: 2}
+  - {fileID: 2100000, guid: d64a2386a22ae5147928ce9fad212b11, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -253,7 +337,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4906248248694683163
+--- !u!64 &5904037343671472505
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

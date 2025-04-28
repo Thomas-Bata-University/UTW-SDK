@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.IO;
-using Editor.Core.Task;
+using Editor.Task;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static Editor.Core.AssetPaths;
+using static Editor.Const.AssetPaths;
 using Debug = UnityEngine.Debug;
 
 namespace Editor.Core {

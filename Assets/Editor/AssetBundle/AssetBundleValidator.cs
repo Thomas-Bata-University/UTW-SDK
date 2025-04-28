@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Editor.Core.Task;
+using Editor.Const;
+using Editor.Core;
+using Editor.Enums;
+using Editor.Task;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Core.AssetBundle {
+namespace Editor.AssetBundle {
     public static class AssetBundleValidator {
 
         /// <summary>

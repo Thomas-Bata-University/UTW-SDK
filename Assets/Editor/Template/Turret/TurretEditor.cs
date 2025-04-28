@@ -1,3 +1,4 @@
+using Editor.Const;
 using Editor.Core;
 using Other.Template.TurretTemplate.Data;
 using UnityEditor;
@@ -10,13 +11,16 @@ namespace Editor.Template.Turret {
         private void OnEnable() {
             visual = GameObject.FindWithTag(Tags.TURRET_VISUAL);
 
-            FindDefaultProperties();
+            RegisterPart(visual);
+            
+            LoadAssetBundles();
         }
 
         public override void OnInspectorGUI() {
             serializedObject.Update();
 
             CreateInspector();
+            AssetBundle(visual);
 
             serializedObject.ApplyModifiedProperties();
         }

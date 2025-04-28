@@ -10,159 +10,156 @@ namespace Editor.Template {
         //Child object (name: Graphic)
         protected GameObject visual;
 
-        protected SerializedProperty massProp;
-        protected SerializedProperty meshProp;
-        protected SerializedProperty numOfMatProp;
-        protected SerializedProperty materialsProp;
-        protected SerializedProperty numOfColProp;
-        protected SerializedProperty collidersProp;
+        protected List<PartProperties> parts = new();
         
-        private string[] assetBundleOptions;
-        private int selectedBundleIndex = 0;
-
-        protected void FindDefaultProperties() {
-            massProp = serializedObject.FindProperty("mass");
-            meshProp = serializedObject.FindProperty("mesh");
-            numOfMatProp = serializedObject.FindProperty("numOfMat");
-            materialsProp = serializedObject.FindProperty("materials");
-            numOfColProp = serializedObject.FindProperty("numOfCol");
-            collidersProp = serializedObject.FindProperty("colliders");
+        private string[] _assetBundleOptions;
+        private int _selectedBundleIndex = 0;
+        
+        protected void RegisterPart(GameObject visualObject, string prefix = "") {
+            var part = new PartProperties(visualObject, serializedObject, prefix);
+            parts.Add(part);
         }
         
         protected virtual void CreateInspector() {
-            //Basic settings
-            EditorGUILayout.HelpBox("Basic Settings", MessageType.None, true);
-            CreateMass();
-            Space();
-            CreateMesh();
-            Space();
-            CreateMaterial();
-            DoubleSpace();
+            foreach (var part in parts) {
+                if (part.visualObject == null) continue;
 
-            //Collider settings
-            EditorGUILayout.HelpBox("Collider Settings", MessageType.None, true);
-            CreateColliders();
-            DoubleSpace();
+                string partName = part.visualObject.transform.parent.name;
+                EditorGUILayout.LabelField($"{partName} Settings", EditorStyles.boldLabel);
+
+                CreateMass(part.mass);
+                Space();
+                CreateMesh(part.mesh);
+                Space();
+                CreateMaterial(part.materials, part.numOfMaterials);
+                Space();
+                CreateColliders(part.colliders, part.numOfColliders);
+                DoubleSpace();
+            }
 
             if (GUI.changed) {
-                Create();
+                foreach (var part in parts) {
+                    Create(part);
+                }
             }
         }
 
-        protected void CreateMass() {
-            EditorGUILayout.IntSlider(massProp, 1, 100000, new GUIContent("Mass", "Mass of the part."));
+
+        protected void CreateMass(SerializedProperty prop, string text = "Mass", string tooltip = "Mass of the part.") {
+            EditorGUILayout.IntSlider(prop, 1, 100000, new GUIContent(text, tooltip));
         }
 
-        protected void CreateMesh() {
-            meshProp.objectReferenceValue = EditorGUILayout.ObjectField(new GUIContent("Mesh", "Mesh"),
-                meshProp.objectReferenceValue,
+        protected void CreateMesh(SerializedProperty prop, string text = "Mesh", string tooltip = "Mesh") {
+            prop.objectReferenceValue = EditorGUILayout.ObjectField(new GUIContent(text, tooltip),
+                prop.objectReferenceValue,
                 typeof(Mesh)) as Mesh;
         }
 
-        protected void CreateMaterial() {
+        protected void CreateMaterial(SerializedProperty prop, SerializedProperty numProp, string text = "Number of Materials") {
             GUILayout.BeginHorizontal();
             EditorGUIUtility.labelWidth = 100;
             int minValue = 1;
             int maxValue = 100;
-            EditorGUILayout.LabelField("Number of Materials");
+            EditorGUILayout.LabelField(text);
 
-            var value = EditorGUILayout.IntField(numOfMatProp.intValue);
-            if (value <= maxValue) numOfMatProp.intValue = value;
+            var value = EditorGUILayout.IntField(numProp.intValue);
+            if (value <= maxValue) numProp.intValue = value;
 
             GUIStyle boldButtonStyle = new GUIStyle(GUI.skin.button);
             boldButtonStyle.fontStyle = FontStyle.Bold;
             if (GUILayout.Button("-", boldButtonStyle, GUILayout.MinWidth(50)) &&
-                numOfMatProp.intValue > minValue) {
-                numOfMatProp.intValue--;
+                numProp.intValue > minValue) {
+                numProp.intValue--;
             }
 
             if (GUILayout.Button("+", boldButtonStyle, GUILayout.MinWidth(50)) &&
-                numOfMatProp.intValue < maxValue) {
-                numOfMatProp.intValue++;
+                numProp.intValue < maxValue) {
+                numProp.intValue++;
             }
 
             GUILayout.EndHorizontal();
 
-            materialsProp.arraySize = numOfMatProp.intValue;
+            prop.arraySize = numProp.intValue;
 
             EditorGUI.indentLevel++;
-            for (int i = 0; i < numOfMatProp.intValue; i++) {
+            for (int i = 0; i < numProp.intValue; i++) {
                 EditorGUIUtility.labelWidth = 155;
-                materialsProp.GetArrayElementAtIndex(i).objectReferenceValue = EditorGUILayout.ObjectField(
-                    "Material " + i, materialsProp.GetArrayElementAtIndex(i).objectReferenceValue,
+                prop.GetArrayElementAtIndex(i).objectReferenceValue = EditorGUILayout.ObjectField(
+                    "Material " + i, prop.GetArrayElementAtIndex(i).objectReferenceValue,
                     typeof(Material), false);
             }
 
             EditorGUI.indentLevel--;
         }
 
-        protected void CreateColliders() {
+        protected void CreateColliders(SerializedProperty prop, SerializedProperty numProp, string text = "Number of Colliders") {
             GUILayout.BeginHorizontal();
             EditorGUIUtility.labelWidth = 100;
             int minValue = 1;
             int maxValue = 10;
-            EditorGUILayout.LabelField("Number of Colliders");
+            EditorGUILayout.LabelField(text);
 
-            var value = EditorGUILayout.IntField(numOfColProp.intValue);
-            if (value <= maxValue) numOfColProp.intValue = value;
+            var value = EditorGUILayout.IntField(numProp.intValue);
+            if (value <= maxValue) numProp.intValue = value;
 
             GUIStyle boldButtonStyle = new GUIStyle(GUI.skin.button);
             boldButtonStyle.fontStyle = FontStyle.Bold;
             if (GUILayout.Button("-", boldButtonStyle, GUILayout.MinWidth(50)) &&
-                numOfColProp.intValue > minValue) {
-                numOfColProp.intValue--;
+                numProp.intValue > minValue) {
+                numProp.intValue--;
             }
 
             if (GUILayout.Button("+", boldButtonStyle, GUILayout.MinWidth(50)) &&
-                numOfColProp.intValue < maxValue) {
-                numOfColProp.intValue++;
+                numProp.intValue < maxValue) {
+                numProp.intValue++;
             }
 
             GUILayout.EndHorizontal();
 
-            collidersProp.arraySize = numOfColProp.intValue;
+            prop.arraySize = numProp.intValue;
 
             EditorGUI.indentLevel++;
-            for (int i = 0; i < numOfColProp.intValue; i++) {
+            for (int i = 0; i < numProp.intValue; i++) {
                 EditorGUIUtility.labelWidth = 155;
-                collidersProp.GetArrayElementAtIndex(i).objectReferenceValue = EditorGUILayout.ObjectField(
-                    "MeshCollider " + i, collidersProp.GetArrayElementAtIndex(i).objectReferenceValue,
+                prop.GetArrayElementAtIndex(i).objectReferenceValue = EditorGUILayout.ObjectField(
+                    "MeshCollider " + i, prop.GetArrayElementAtIndex(i).objectReferenceValue,
                     typeof(Mesh), false);
             }
 
             EditorGUI.indentLevel--;
         }
 
-        protected void Create() {
-            //Set mesh
-            visual.GetComponent<MeshFilter>().mesh = meshProp.objectReferenceValue as Mesh;
+        protected void Create(PartProperties part) {
+            // Set mesh
+            part.visualObject.GetComponent<MeshFilter>().mesh = part.mesh.objectReferenceValue as Mesh;
 
-            //Set material
-            Material[] materials = new Material [numOfMatProp.intValue];
+            // Set materials
+            Material[] materials = new Material[part.numOfMaterials.intValue];
             for (int i = 0; i < materials.Length; i++) {
-                materials[i] = materialsProp.GetArrayElementAtIndex(i).objectReferenceValue as Material;
+                materials[i] = part.materials.GetArrayElementAtIndex(i).objectReferenceValue as Material;
             }
+            part.visualObject.GetComponent<MeshRenderer>().materials = materials;
 
-            visual.GetComponent<MeshRenderer>().materials = materials;
-
-            //Set collider
-            MeshCollider[] oldMeshColliders = visual.GetComponents<MeshCollider>();
+            // Remove old colliders
+            MeshCollider[] oldMeshColliders = part.visualObject.GetComponents<MeshCollider>();
             for (int i = 0; i < oldMeshColliders.Length; i++) {
                 var oldCollider = oldMeshColliders[i];
                 EditorApplication.delayCall += () => DestroyImmediate(oldCollider);
             }
 
-            for (int i = 0; i < numOfColProp.intValue; i++) {
-                MeshCollider meshCollider = visual.AddComponent<MeshCollider>();
-                meshCollider.sharedMesh = collidersProp.GetArrayElementAtIndex(i).objectReferenceValue as Mesh;
+            // Add new colliders
+            for (int i = 0; i < part.numOfColliders.intValue; i++) {
+                MeshCollider meshCollider = part.visualObject.AddComponent<MeshCollider>();
+                meshCollider.sharedMesh = part.colliders.GetArrayElementAtIndex(i).objectReferenceValue as Mesh;
                 meshCollider.convex = true;
             }
         }
 
-        protected void AssetBundle() {
-            if (visual?.transform.parent is null) return;
 
-            GameObject gameObject = visual.transform.parent.gameObject;
+        protected void AssetBundle(GameObject go) {
+            if (go?.transform.parent is null) return;
+
+            GameObject gameObject = go.transform.parent.gameObject;
             
             string assetPath = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(gameObject);
 
@@ -174,14 +171,14 @@ namespace Editor.Template {
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("AssetBundle Settings", EditorStyles.boldLabel);
 
-                    selectedBundleIndex = Array.IndexOf(assetBundleOptions, importer.assetBundleName);
-                    if (selectedBundleIndex < 0) selectedBundleIndex = 0;
+                    _selectedBundleIndex = Array.IndexOf(_assetBundleOptions, importer.assetBundleName);
+                    if (_selectedBundleIndex < 0) _selectedBundleIndex = 0;
 
-                    int newIndex = EditorGUILayout.Popup("AssetBundle", selectedBundleIndex, assetBundleOptions);
+                    int newIndex = EditorGUILayout.Popup("AssetBundle", _selectedBundleIndex, _assetBundleOptions);
                 
-                    if (newIndex != selectedBundleIndex)
+                    if (newIndex != _selectedBundleIndex)
                     {
-                        importer.assetBundleName = newIndex == 0 ? "" : assetBundleOptions[newIndex];
+                        importer.assetBundleName = newIndex == 0 ? "" : _assetBundleOptions[newIndex];
                         importer.SaveAndReimport();
                         OpenProjectController.MetaData.assetBundle = importer.assetBundleName;
                         Debug.Log($"AssetBundle for {gameObject.name} changed to: {importer.assetBundleName}");
@@ -214,7 +211,7 @@ namespace Editor.Template {
                 }
             }
 
-            assetBundleOptions = new List<string>(bundleNames).ToArray();
+            _assetBundleOptions = new List<string>(bundleNames).ToArray();
         }
 
         #region Style

@@ -1,8 +1,9 @@
 using System.IO;
+using Editor.Const;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Core.AssetBundle {
+namespace Editor.AssetBundle {
     public class AssetBundleBuilder {
 
         public static void Build() {
