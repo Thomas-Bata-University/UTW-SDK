@@ -1,3 +1,4 @@
+using Editor.Helper;
 using UnityEditor;
 using UnityEngine;
 
@@ -41,7 +42,7 @@ namespace Editor.AssetBundle {
                     GUILayout.Width(position.width - borderThickness * 2),
                     GUILayout.Height(position.height - borderThickness * 2))) {
                 if (AssetBundleValidator.Validate()) {
-                    Debug.Log("Validations successful, starting AssetBundle generation.");
+                    ColorLogger.LogGreen("Validations successful, starting AssetBundle generation.");
                     AssetBundleBuilder.Build();
                 }
             }

@@ -1,5 +1,6 @@
 using System.IO;
 using Editor.Enums;
+using Editor.Helper;
 using UnityEditor;
 using UnityEngine;
 using static Editor.Const.AssetPaths;
@@ -20,7 +21,7 @@ namespace Editor.Core {
         private void OnGUI() {
             if (OpenProjectController.IsOpenedProject) {
                 OpenProjectController.ShowWindow();
-                Debug.LogWarning("Cannot create a new project when another one is open.");
+                ColorLogger.LogYellow("Cannot create a new project when another one is open.");
                 Close();
             }
 
@@ -113,12 +114,18 @@ namespace Editor.Core {
                     CopyDirectory(sourcePath, fullDestPath);
                 }
                 else {
-                    Debug.LogWarning($"Folder path does not exist: {sourcePath}");
+                    ColorLogger.LogFormatted("Folder path does not exist: {0}",
+                        new[] { sourcePath },
+                        new[] { "yellow" },
+                        new[] { true },
+                        ColorLogger.LogLevel.Warning
+                    );
+
                 }
             }
 
             AssetDatabase.Refresh();
-            Debug.Log("Selected folders copied successfully!");
+            ColorLogger.Log("Selected folders copied successfully!");
         }
 
         private void CopyDirectory(string sourceDir, string destDir) {
@@ -132,11 +139,11 @@ namespace Editor.Core {
                     string newContent = File.ReadAllText(file);
 
                     File.WriteAllText(destFile, existingContent + "\n" + newContent);
-                    Debug.Log($"Data appended to existing file: {destFile}");
+                    ColorLogger.Log($"Data appended to existing file: {destFile}");
                 }
                 else {
                     File.Copy(file, destFile, true);
-                    Debug.Log($"File copied: {destFile}");
+                    ColorLogger.Log($"File copied: {destFile}");
                 }
             }
 

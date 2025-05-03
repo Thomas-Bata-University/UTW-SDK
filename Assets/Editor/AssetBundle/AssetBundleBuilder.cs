@@ -1,7 +1,7 @@
 using System.IO;
 using Editor.Const;
+using Editor.Helper;
 using UnityEditor;
-using UnityEngine;
 
 namespace Editor.AssetBundle {
     public class AssetBundleBuilder {
@@ -17,7 +17,7 @@ namespace Editor.AssetBundle {
                 BuildTarget.StandaloneWindows);
 
             AssetDatabase.Refresh();
-            Debug.Log("AssetBundles successfully generated.");
+            ColorLogger.Log("AssetBundles successfully generated.");
         }
 
     }

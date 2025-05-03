@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.IO;
+using Editor.Helper;
 using Editor.Task;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using static Editor.Const.AssetPaths;
-using Debug = UnityEngine.Debug;
 
 namespace Editor.Core {
     public class OpenProjectController : EditorWindow {
@@ -73,7 +72,7 @@ namespace Editor.Core {
             GUILayout.FlexibleSpace();
             if (GUILayout.Button("Save", GUILayout.Width(100))) {
                 ProjectManager.OverridePrefab(metadata);
-                Debug.Log($"Project {metadata.projectName} successfully saved.");
+                ColorLogger.LogFormatted("Project {0} successfully saved.", metadata.projectName, "green", true);
             }
 
             if (GUILayout.Button("Close", GUILayout.Width(100))) {
@@ -82,7 +81,7 @@ namespace Editor.Core {
                 ProjectManager.RemovePrefab(metadata);
                 MetaData = null;
                 TaskListWindow.tasks = null;
-                Debug.Log($"Project {metadata.projectName} successfully closed.");
+                ColorLogger.LogFormatted("Project {0} successfully closed.", metadata.projectName, "green", true);
             }
 
             GUILayout.EndHorizontal();
@@ -118,14 +117,12 @@ namespace Editor.Core {
                         string metadataPath = subFolder + METADATA;
                         OpenProject(metadataPath);
                         MetaData = ProjectManager.CreatePrefabWithMetadata(metadataPath);
-                        Debug.Log($"Project {subFolder} successfully opened.");
+                        ColorLogger.LogFormatted("Project {0} successfully opened.", MetaData.projectName, "green", true);
                     }
 
                     if (GUILayout.Button("Delete", GUILayout.Width(100))) {
                         DeleteProject(subFolder);
-                        Debug.Log($"Project {subFolder} successfully deleted.");
-
-
+                        ColorLogger.LogFormatted("Project {0} successfully deleted.", MetaData.projectName, "green", true);
                     }
 
                     GUILayout.EndHorizontal();

@@ -8,7 +8,7 @@ namespace Editor.Helper {
         public static void ChangeLayout() {
             string layoutPath = "Assets/Other/Layout/default.wlt";
             EditorUtility.LoadWindowLayout(layoutPath);
-            Debug.Log("Layout has been changed!");
+            ColorLogger.Log("Layout has been changed!");
         }
 
     }

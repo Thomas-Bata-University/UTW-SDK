@@ -18,7 +18,6 @@ namespace Editor.Core {
             string path = metadata.projectPath + AssetPaths.METADATA;
             File.WriteAllText(path, json);
 
-            Debug.Log($"Metadata created to {path}");
             OpenProjectController.MetaData = metadata;
 
             return path;
@@ -70,7 +69,6 @@ namespace Editor.Core {
         }
 
         private static void SetAssetBundle(string assetPath, string name) {
-            Debug.Log(assetPath);
             AssetImporter importer = AssetImporter.GetAtPath(assetPath);
             if (importer != null && importer.assetBundleName != name) {
                 importer.assetBundleName = name;

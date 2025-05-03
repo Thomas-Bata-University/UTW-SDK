@@ -1,3 +1,4 @@
+using Editor.Helper;
 using UnityEditor;
 using UnityEngine;
 
@@ -27,8 +28,13 @@ namespace Editor.Template {
         private SerializedProperty FindPropertySafe(SerializedObject serialized, string name) {
             var prop = serialized.FindProperty(name);
             if (prop == null) {
-                Debug.LogError(
-                    $"[PartProperties] Property '{name}' not found on {serialized.targetObject.GetType().Name}!");
+                ColorLogger.LogFormatted(
+                    "Property '{0}' not found on {1}!",
+                    new[] { name, serialized.targetObject.GetType().Name },
+                    new[] { "red", null },
+                    new[] { true, false },
+                    ColorLogger.LogLevel.Error
+                );
             }
 
             return prop;

@@ -11,15 +11,15 @@ namespace Editor.Template {
         protected GameObject visual;
 
         protected List<PartProperties> parts = new();
-        
+
         private string[] _assetBundleOptions;
         private int _selectedBundleIndex = 0;
-        
+
         protected void RegisterPart(GameObject visualObject, string prefix = "") {
             var part = new PartProperties(visualObject, serializedObject, prefix);
             parts.Add(part);
         }
-        
+
         protected virtual void CreateInspector() {
             foreach (var part in parts) {
                 if (part.visualObject == null) continue;
@@ -55,7 +55,8 @@ namespace Editor.Template {
                 typeof(Mesh)) as Mesh;
         }
 
-        protected void CreateMaterial(SerializedProperty prop, SerializedProperty numProp, string text = "Number of Materials") {
+        protected void CreateMaterial(SerializedProperty prop, SerializedProperty numProp,
+            string text = "Number of Materials") {
             GUILayout.BeginHorizontal();
             EditorGUIUtility.labelWidth = 100;
             int minValue = 1;
@@ -92,7 +93,8 @@ namespace Editor.Template {
             EditorGUI.indentLevel--;
         }
 
-        protected void CreateColliders(SerializedProperty prop, SerializedProperty numProp, string text = "Number of Colliders") {
+        protected void CreateColliders(SerializedProperty prop, SerializedProperty numProp,
+            string text = "Number of Colliders") {
             GUILayout.BeginHorizontal();
             EditorGUIUtility.labelWidth = 100;
             int minValue = 1;
@@ -138,6 +140,7 @@ namespace Editor.Template {
             for (int i = 0; i < materials.Length; i++) {
                 materials[i] = part.materials.GetArrayElementAtIndex(i).objectReferenceValue as Material;
             }
+
             part.visualObject.GetComponent<MeshRenderer>().materials = materials;
 
             // Remove old colliders
@@ -160,14 +163,12 @@ namespace Editor.Template {
             if (go?.transform.parent is null) return;
 
             GameObject gameObject = go.transform.parent.gameObject;
-            
+
             string assetPath = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(gameObject);
 
-            if (!string.IsNullOrEmpty(assetPath))
-            {
+            if (!string.IsNullOrEmpty(assetPath)) {
                 AssetImporter importer = AssetImporter.GetAtPath(assetPath);
-                if (importer != null)
-                {
+                if (importer != null) {
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("AssetBundle Settings", EditorStyles.boldLabel);
 
@@ -175,38 +176,29 @@ namespace Editor.Template {
                     if (_selectedBundleIndex < 0) _selectedBundleIndex = 0;
 
                     int newIndex = EditorGUILayout.Popup("AssetBundle", _selectedBundleIndex, _assetBundleOptions);
-                
-                    if (newIndex != _selectedBundleIndex)
-                    {
+
+                    if (newIndex != _selectedBundleIndex) {
                         importer.assetBundleName = newIndex == 0 ? "" : _assetBundleOptions[newIndex];
                         importer.SaveAndReimport();
                         OpenProjectController.MetaData.assetBundle = importer.assetBundleName;
-                        Debug.Log($"AssetBundle for {gameObject.name} changed to: {importer.assetBundleName}");
                     }
 
-                    if (GUILayout.Button("Remove AssetBundle"))
-                    {
+                    if (GUILayout.Button("Remove AssetBundle")) {
                         importer.assetBundleName = "";
                         importer.SaveAndReimport();
-                        Debug.Log($"AssetBundle removed from '{gameObject.name}'");
                     }
                 }
             }
-            else
-            {
+            else {
                 EditorGUILayout.HelpBox("This object is not Prefab.", MessageType.Warning);
             }
         }
-        
-        protected void LoadAssetBundles()
-        {
-            // Načte všechny unikátní AssetBundle názvy v projektu
-            HashSet<string> bundleNames = new HashSet<string> { "None" }; // "None" jako výchozí hodnota
-            foreach (string assetPath in AssetDatabase.GetAllAssetPaths())
-            {
+
+        protected void LoadAssetBundles() {
+            HashSet<string> bundleNames = new HashSet<string> { "None" };
+            foreach (string assetPath in AssetDatabase.GetAllAssetPaths()) {
                 AssetImporter importer = AssetImporter.GetAtPath(assetPath);
-                if (importer != null && !string.IsNullOrEmpty(importer.assetBundleName))
-                {
+                if (importer != null && !string.IsNullOrEmpty(importer.assetBundleName)) {
                     bundleNames.Add(importer.assetBundleName);
                 }
             }

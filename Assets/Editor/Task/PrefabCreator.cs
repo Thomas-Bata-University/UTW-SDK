@@ -12,7 +12,7 @@ namespace Editor.Task {
             var parent = GetFirstRootObject();
             CreatePrefab(prefabPath, newName, tag, parent, "mount point");
         }
-        
+
         public static void CreateInternalModule(string prefabPath, string newName, string tag) {
             var parent = GetFirstRootObject();
             CreatePrefab(prefabPath, newName, tag, parent, "internal module");
@@ -21,7 +21,7 @@ namespace Editor.Task {
         public static void CreatePlate(string prefabPath, string newName, string tag) {
             var parent = GameObject.FindGameObjectWithTag(Tags.PLATE_PARENT);
             if (parent == null) {
-                Debug.LogWarning(
+                ColorLogger.LogWarning(
                     $"No parent with tag '{Tags.PLATE_PARENT}' found. Plate will be placed at scene root.");
             }
 
@@ -32,13 +32,13 @@ namespace Editor.Task {
             string objectType) {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
             if (prefab == null) {
-                Debug.LogError($"Prefab not found at path: {prefabPath}");
+                ColorLogger.LogError($"Prefab not found at path: {prefabPath}");
                 return;
             }
 
             var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
             if (instance == null) {
-                Debug.LogError($"Failed to instantiate {objectType} prefab!");
+                ColorLogger.LogError($"Failed to instantiate {objectType} prefab!");
                 return;
             }
 
@@ -51,10 +51,12 @@ namespace Editor.Task {
             if (parent != null) {
                 instance.transform.SetParent(parent.transform, true);
                 IconSetter.SetIcon(instance);
-                Debug.Log($"Created {instance.name} under parent: {parent.name}");
+                ColorLogger.LogFormatted("Created {0} under parent {1}",
+                        new[] { instance.name, parent.name },
+                        bolds: new[] { true, true });
             }
             else {
-                Debug.Log($"Created {instance.name} at scene root.");
+                ColorLogger.LogFormatted("Created {0} at scene root.", instance.name, bold: true);
             }
         }
 

@@ -11,7 +11,7 @@ namespace Editor.Core {
         }
 
         static void OnPackageImportCompleted(string packageName) {
-            Debug.Log($"Package {packageName} imported!");
+            ColorLogger.Log($"Package {packageName} imported!");
             LayoutChanger.ChangeLayout();
             OpenMyEditorWindow();
         }

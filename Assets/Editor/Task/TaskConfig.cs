@@ -4,6 +4,7 @@ using System.Linq;
 using Editor.Const;
 using Editor.Core;
 using Editor.Enums;
+using Editor.Helper;
 using UnityEngine;
 
 namespace Editor.Task {
@@ -18,7 +19,7 @@ namespace Editor.Task {
 
         public static List<CoreTask> GetValidationConfig(GameObject prefab, TankPart part) {
             if (prefab == null) {
-                Debug.LogError("Prefab is null, cannot validate tasks.");
+                ColorLogger.LogError("Prefab is null, cannot validate tasks.");
                 return new List<CoreTask>();
             }
 

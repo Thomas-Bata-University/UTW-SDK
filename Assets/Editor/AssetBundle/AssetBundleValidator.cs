@@ -5,6 +5,7 @@ using System.Linq;
 using Editor.Const;
 using Editor.Core;
 using Editor.Enums;
+using Editor.Helper;
 using Editor.Task;
 using UnityEditor;
 using UnityEngine;
@@ -20,15 +21,25 @@ namespace Editor.AssetBundle {
             
             if (!ValidateTasks(out var taskIssues, out var projectName)) {
                 validationErrors.AddRange(taskIssues);
-                Debug.LogError($"Task validation failed for project {projectName}:\n" +
-                               string.Join("\n", validationErrors.Select(e => " - " + e)));
+                ColorLogger.LogFormatted("Task validation {0} for project {1}:\n{2}",
+                    new[] { "failed", projectName, string.Join("\n", validationErrors.Select(e => " - " + e)) },
+                    new[] { "red", null, null },
+                    new[] { true, false, false },
+                    ColorLogger.LogLevel.Error
+                );
+
                 return false;
             }
 
             if (!ValidateMandatory(out var mandatoryIssues, out projectName)) {
                 validationErrors.AddRange(mandatoryIssues);
-                Debug.LogError($"Mandatory component validation failed for project {projectName}:\n" +
-                               string.Join("\n", validationErrors.Select(e => " - " + e)));
+                ColorLogger.LogFormatted("Mandatory component validation {0} for project {1}:\n{2}",
+                    new[] { "failed", projectName, string.Join("\n", validationErrors.Select(e => " - " + e)) },
+                    new[] { "red", null, null },
+                    new[] { true, false, false },
+                    ColorLogger.LogLevel.Error
+                );
+
                 return false;
             }
 
