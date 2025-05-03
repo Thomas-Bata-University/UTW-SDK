@@ -24,6 +24,7 @@ namespace Editor.Core {
         }
 
         public static void UpdateMetadata(Metadata metadata) {
+            metadata.lastUpdate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             CreateMetadata(metadata);
         }
 
@@ -104,6 +105,7 @@ namespace Editor.Core {
             public bool isMap;
 
             public string created;
+            public string lastUpdate;
 
             public Metadata(string prefabPath, string projectPath, TankPart tankPart) {
                 this.projectName = Path.GetFileName(projectPath);
@@ -113,6 +115,7 @@ namespace Editor.Core {
                 this.created = DateTime.Now.ToString("yyyy MMMM dd", new CultureInfo("en-US"));
                 this.tankPart = tankPart.ToString();
                 this.isMap = tankPart == TankPart.NONE;
+                this.lastUpdate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             }
 
         }

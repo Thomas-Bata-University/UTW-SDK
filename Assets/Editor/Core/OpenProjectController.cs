@@ -44,12 +44,11 @@ namespace Editor.Core {
 
         private void OnGUI() {
             LoadFolderContents();
-            // EditorPrefs.SetString(MetadataPath, null);
-
+            
             string metadataPath = EditorPrefs.GetString(MetadataPath, "");
             ProjectManager.Metadata metadata = ProjectManager.GetMetadata(metadataPath);
             IsOpenedProject =
-                metadata is not null; //TODO musim to lepe upravit, zjistit jak poznat ze je otevren projekt
+                metadata is not null;
             if (IsOpenedProject) {
                 MetaData = metadata;
                 DisplayOpenedProject(metadata);
