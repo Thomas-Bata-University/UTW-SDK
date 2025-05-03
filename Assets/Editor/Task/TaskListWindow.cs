@@ -43,48 +43,49 @@ namespace Editor.Task {
         }
 
         private static void DrawHeader() {
-            GUILayout.Space(4);
+            GUILayout.Space(6);
+            EditorGUILayout.BeginHorizontal(EditorStyles.helpBox);
 
-            EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
+            GUIStyle headerStyle = new GUIStyle(EditorStyles.boldLabel) {
+                alignment = TextAnchor.MiddleLeft
+            };
 
-            EditorGUILayout.LabelField("Tasks to complete", GUILayout.MinWidth(150));
-            EditorGUILayout.LabelField("Progress", GUILayout.Width(80));
-            EditorGUILayout.LabelField("Done", GUILayout.Width(70));
-            EditorGUILayout.LabelField("Action", GUILayout.Width(65));
+            EditorGUILayout.LabelField("Tasks to complete", headerStyle, GUILayout.MinWidth(200));
+            EditorGUILayout.LabelField("Progress", headerStyle, GUILayout.Width(120));
+            EditorGUILayout.LabelField("Done", headerStyle, GUILayout.Width(100));
+            EditorGUILayout.LabelField("Action", headerStyle, GUILayout.Width(85));
 
             EditorGUILayout.EndHorizontal();
         }
 
-
         private static void DrawTaskRow(CoreTask task) {
-            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.BeginHorizontal("box");
 
-            EditorGUILayout.LabelField(task.TaskDescription, GUILayout.ExpandWidth(true));
-            EditorGUILayout.LabelField($"{task.CurrentCount}/{task.RequiredCount}", GUILayout.Width(70));
+            // Task description
+            EditorGUILayout.LabelField(task.TaskDescription, GUILayout.MinWidth(200));
 
+            // Progress
+            EditorGUILayout.LabelField($"{task.CurrentCount}/{task.RequiredCount}", GUILayout.Width(120));
+
+            // Done (disabled toggle)
             EditorGUI.BeginDisabledGroup(true);
-            EditorGUILayout.Toggle(task.IsCompleted, GUILayout.Width(40));
+            EditorGUILayout.Toggle(task.IsCompleted, GUILayout.Width(100));
             EditorGUI.EndDisabledGroup();
 
+            // Action button (or empty space)
             if (task.OptionalAction != null) {
                 if (GUILayout.Button(task.OptionalActionLabel ?? "Action", GUILayout.Width(80))) {
                     task.OptionalAction.Invoke();
                 }
-            }
-            else {
+            } else {
                 GUILayout.Space(84);
             }
 
             EditorGUILayout.EndHorizontal();
-            EditorGUILayout.EndVertical();
             GUILayout.Space(2);
         }
 
-
         private static void DrawFooter(int completed, int total) {
-            GUILayout.Space(8);
-
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
             GUILayout.BeginHorizontal();

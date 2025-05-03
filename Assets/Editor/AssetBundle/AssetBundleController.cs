@@ -42,7 +42,8 @@ namespace Editor.AssetBundle {
                     GUILayout.Width(position.width - borderThickness * 2),
                     GUILayout.Height(position.height - borderThickness * 2))) {
                 if (AssetBundleValidator.Validate()) {
-                    ColorLogger.LogGreen("Validations successful, starting AssetBundle generation.");
+                    ColorLogger.LogFormatted("Validations {0}, starting AssetBundle generation.",
+                        "successfull", "green", true);
                     AssetBundleBuilder.Build();
                 }
             }

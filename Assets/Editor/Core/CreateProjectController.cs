@@ -22,7 +22,7 @@ namespace Editor.Core {
         private void OnGUI() {
             if (OpenProjectController.IsOpenedProject) {
                 OpenProjectController.ShowWindow();
-                ColorLogger.LogYellow("Cannot create a new project when another one is open.");
+                ColorLogger.LogWarning("Cannot create a new project when another one is open.");
                 Close();
                 return;
             }

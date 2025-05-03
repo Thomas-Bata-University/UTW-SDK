@@ -16,16 +16,6 @@ namespace Editor.Helper {
         public static void LogColorBold(string message, string color) =>
             Debug.Log($"<color={color}><b>{message}</b></color>");
 
-        public static void LogGreen(string message) => LogColor(message, "green");
-        public static void LogRed(string message) => LogColor(message, "red");
-        public static void LogYellow(string message) => LogColor(message, "yellow");
-        public static void LogCyan(string message) => LogColor(message, "cyan");
-
-        public static void LogModule(string moduleName, string message, string color = "white") {
-            string prefix = $"<color={color}>[{moduleName}]</color>";
-            Debug.Log($"{prefix} {message}");
-        }
-
         public static void LogFormatted(
             string format,
             string highlightedText,
