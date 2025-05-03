@@ -28,9 +28,14 @@ namespace Editor.Core {
         }
 
         public static Metadata GetMetadata(string path) {
-            if (string.IsNullOrEmpty(path)) return null;
-            string json = File.ReadAllText(path);
-            return JsonUtility.FromJson<Metadata>(json);
+            try {
+                if (string.IsNullOrEmpty(path)) return null;
+                string json = File.ReadAllText(path);
+                return JsonUtility.FromJson<Metadata>(json);
+            }
+            catch (Exception) {
+                return null;
+            }
         }
 
         public static Metadata CreatePrefabWithMetadata(string metadataPath) {

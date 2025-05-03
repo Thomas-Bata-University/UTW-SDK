@@ -29,7 +29,7 @@ namespace Editor.Template {
             var prop = serialized.FindProperty(name);
             if (prop == null) {
                 ColorLogger.LogFormatted(
-                    "Property '{0}' not found on {1}!",
+                    "Property {0} not found on {1}!",
                     new[] { name, serialized.targetObject.GetType().Name },
                     new[] { "red", null },
                     new[] { true, false },

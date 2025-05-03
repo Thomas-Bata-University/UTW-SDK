@@ -91,7 +91,7 @@ namespace Editor.Core {
 
             if (Directory.Exists(targetPath)) {
                 ColorLogger.LogFormatted(
-                    "Project with name '{0}' already exists in this category!",
+                    "Project with name {0} already exists in this category!",
                     new[] { _projectName },
                     new[] { "red" },
                     new[] { true },

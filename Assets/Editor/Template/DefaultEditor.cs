@@ -44,15 +44,17 @@ namespace Editor.Template {
             }
         }
 
-
         protected void CreateMass(SerializedProperty prop, string text = "Mass", string tooltip = "Mass of the part.") {
             EditorGUILayout.IntSlider(prop, 1, 100000, new GUIContent(text, tooltip));
         }
 
         protected void CreateMesh(SerializedProperty prop, string text = "Mesh", string tooltip = "Mesh") {
-            prop.objectReferenceValue = EditorGUILayout.ObjectField(new GUIContent(text, tooltip),
+            prop.objectReferenceValue = EditorGUILayout.ObjectField(
+                new GUIContent(text, tooltip),
                 prop.objectReferenceValue,
-                typeof(Mesh)) as Mesh;
+                typeof(Mesh),
+                false
+            ) as Mesh;
         }
 
         protected void CreateMaterial(SerializedProperty prop, SerializedProperty numProp,

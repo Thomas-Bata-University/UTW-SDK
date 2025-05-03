@@ -7,7 +7,8 @@ namespace Editor.Helper {
         [MenuItem("Tools/Export unitypackage")]
         public static void Export() {
             string[] assetsToInclude = {
-                "Assets",
+                "Assets/Editor",
+                "Assets/Other",
                 "Packages"
             };
 
@@ -25,7 +26,7 @@ namespace Editor.Helper {
             );
 
             ColorLogger.LogFormatted(
-                "Package exported to '{0}' successfully.",
+                "Package exported to {0} successfully.",
                 new[] { exportPath },
                 new[] { "green" },
                 new[] { true }

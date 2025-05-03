@@ -91,31 +91,35 @@ namespace Editor.Core {
 
         private void DisplayFolderContents(string folderPath) {
             if (_folderContents.ContainsKey(folderPath)) {
-                //Header
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("", EditorStyles.boldLabel, GUILayout.Width(3));
-                GUILayout.Label("Project name", EditorStyles.boldLabel, GUILayout.Width(200));
-                GUILayout.Label("Size", EditorStyles.boldLabel, GUILayout.Width(101));
-                GUILayout.Label("Last update", EditorStyles.boldLabel, GUILayout.Width(152));
+                GUILayout.BeginHorizontal(EditorStyles.boldLabel);
+                GUILayout.Label("Project name", GUILayout.Width(position.width * 0.3f));
+                GUILayout.Label("Size", GUILayout.Width(position.width * 0.15f));
+                GUILayout.Label("Last update", GUILayout.Width(position.width * 0.25f));
+                GUILayout.FlexibleSpace();
+                GUILayout.Label("", GUILayout.Width(200)); // prostor pro tlačítka
                 GUILayout.EndHorizontal();
+
                 GUILayout.Space(5);
 
-                float scrollViewHeight = position.height - 80;
+                float scrollViewHeight = position.height - 100;
                 _scrollPosition = GUILayout.BeginScrollView(_scrollPosition, GUILayout.Height(scrollViewHeight));
 
                 foreach (string subFolder in _folderContents[folderPath]) {
-                    if (!Directory.Exists(subFolder)) return;
+                    if (!Directory.Exists(subFolder)) continue;
+
                     string folderName = Path.GetFileName(subFolder);
                     long folderSize = GetFolderSize(subFolder);
                     string lastModified = Directory.GetLastWriteTime(subFolder).ToString("dd.MM.yyyy HH:mm");
 
                     GUILayout.BeginHorizontal("box");
 
-                    GUILayout.Label(folderName, GUILayout.Width(200));
-                    GUILayout.Label(FormatSize(folderSize), GUILayout.Width(100));
-                    GUILayout.Label(lastModified, GUILayout.Width(170));
+                    GUILayout.Label(folderName, GUILayout.Width(position.width * 0.3f));
+                    GUILayout.Label(FormatSize(folderSize), GUILayout.Width(position.width * 0.15f));
+                    GUILayout.Label(lastModified, GUILayout.Width(position.width * 0.25f));
 
-                    if (GUILayout.Button("Open", GUILayout.Width(100))) {
+                    GUILayout.FlexibleSpace();
+
+                    if (GUILayout.Button("Open", GUILayout.Width(80))) {
                         string metadataPath = subFolder + METADATA;
                         OpenProject(metadataPath);
                         MetaData = ProjectManager.CreatePrefabWithMetadata(metadataPath);
@@ -123,7 +127,7 @@ namespace Editor.Core {
                             true);
                     }
 
-                    if (GUILayout.Button("Delete", GUILayout.Width(100))) {
+                    if (GUILayout.Button("Delete", GUILayout.Width(80))) {
                         string projectName = DeleteProject(subFolder);
                         ColorLogger.LogFormatted("Project {0} successfully deleted.", projectName, "green", true);
                     }
@@ -137,9 +141,17 @@ namespace Editor.Core {
                 GUILayout.Label("No folders found.");
             }
 
-            CreateButton();
-        }
+            GUILayout.FlexibleSpace();
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("Create new project", GUILayout.Width(200))) {
+                CreateProjectController.ShowWindow();
+            }
 
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+        }
+        
         private void CreateButton() {
             if (GUILayout.Button("Create new project", GUILayout.Width(200))) {
                 CreateProjectController.ShowWindow();

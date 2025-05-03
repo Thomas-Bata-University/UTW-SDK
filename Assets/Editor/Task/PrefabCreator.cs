@@ -22,7 +22,7 @@ namespace Editor.Task {
             var parent = GameObject.FindGameObjectWithTag(Tags.PLATE_PARENT);
             if (parent == null) {
                 ColorLogger.LogWarning(
-                    $"No parent with tag '{Tags.PLATE_PARENT}' found. Plate will be placed at scene root.");
+                    $"No parent with tag {Tags.PLATE_PARENT} found. Plate will be placed at scene root.");
             }
 
             CreatePrefab(prefabPath, newName, tag, parent, "plate");
