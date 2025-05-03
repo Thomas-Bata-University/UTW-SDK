@@ -27,10 +27,12 @@ namespace Editor.Core {
 
         private void OnGUI() {
             LoadFolderContents();
+            // EditorPrefs.SetString(MetadataPath, null);
 
             string metadataPath = EditorPrefs.GetString(MetadataPath, "");
             ProjectManager.Metadata metadata = ProjectManager.GetMetadata(metadataPath);
-            IsOpenedProject = metadata is not null; //TODO musim to lepe upravit, zjistit jak poznat ze je otevren projekt
+            IsOpenedProject =
+                metadata is not null; //TODO musim to lepe upravit, zjistit jak poznat ze je otevren projekt
             if (IsOpenedProject) {
                 MetaData = metadata;
                 DisplayOpenedProject(metadata);
@@ -63,7 +65,7 @@ namespace Editor.Core {
             GUILayout.Space(10);
             GUILayout.Label(metadata.projectName, StyleUtils.Style(25, EditorStyles.boldLabel));
             GUILayout.Space(20);
-            
+
             //Show tasks
             TaskListWindow.DrawTasks(metadata);
 
@@ -117,12 +119,13 @@ namespace Editor.Core {
                         string metadataPath = subFolder + METADATA;
                         OpenProject(metadataPath);
                         MetaData = ProjectManager.CreatePrefabWithMetadata(metadataPath);
-                        ColorLogger.LogFormatted("Project {0} successfully opened.", MetaData.projectName, "green", true);
+                        ColorLogger.LogFormatted("Project {0} successfully opened.", MetaData.projectName, "green",
+                            true);
                     }
 
                     if (GUILayout.Button("Delete", GUILayout.Width(100))) {
-                        DeleteProject(subFolder);
-                        ColorLogger.LogFormatted("Project {0} successfully deleted.", MetaData.projectName, "green", true);
+                        string projectName = DeleteProject(subFolder);
+                        ColorLogger.LogFormatted("Project {0} successfully deleted.", projectName, "green", true);
                     }
 
                     GUILayout.EndHorizontal();
@@ -174,10 +177,11 @@ namespace Editor.Core {
             IsOpenedProject = true;
         }
 
-        private void DeleteProject(string subFolder) {
+        private string DeleteProject(string subFolder) {
             AssetDatabase.DeleteAsset(subFolder);
             MetaData = null;
             Repaint();
+            return Path.GetFileName(subFolder);
         }
 
     }

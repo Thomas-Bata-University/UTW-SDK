@@ -9,12 +9,13 @@ namespace Editor.Core {
     public class CreateProjectController : EditorWindow {
 
         private static CreateProjectController _window;
+        private string _projectName = "";
 
         [MenuItem("UTW/Create project", false, 2)]
         public static void ShowWindow() {
             _window = GetWindow<CreateProjectController>("Create project");
 
-            StyleUtils.SetSize(_window, new Vector2(600, 325));
+            StyleUtils.SetSize(_window, new Vector2(600, 350));
             StyleUtils.SetMiddle(_window);
         }
 
@@ -23,10 +24,14 @@ namespace Editor.Core {
                 OpenProjectController.ShowWindow();
                 ColorLogger.LogYellow("Cannot create a new project when another one is open.");
                 Close();
+                return;
             }
 
             GUILayout.Space(10);
             CreateHeader();
+            GUILayout.Space(10);
+            GUILayout.Label("Enter project name:");
+            _projectName = GUILayout.TextField(_projectName, GUILayout.Height(25));
             GUILayout.Space(20);
             CreateButtons();
         }
@@ -39,70 +44,88 @@ namespace Editor.Core {
                 StyleUtils.Style(13, EditorStyles.label));
         }
 
-        /// <summary>
-        /// Set which folders you want to copy -> foldersToCopy = { "Materials", "Prefabs" };
-        /// </summary>
         private void CreateButtons() {
             if (GUILayout.Button("HULL")) {
-                string[] foldersToCopy = { "Prefabs" };
-                Create(foldersToCopy, HULL, "HullTemplate", "Hull", TankPart.HULL);
+                TryCreateProject(HULL, "HullTemplate", "Hull", TankPart.HULL);
             }
 
             GUILayout.Space(10);
 
             if (GUILayout.Button("TURRET")) {
-                string[] foldersToCopy = { "Prefabs" };
-                Create(foldersToCopy, TURRET, "TurretTemplate", "Turret", TankPart.TURRET);
+                TryCreateProject(TURRET, "TurretTemplate", "Turret", TankPart.TURRET);
             }
 
             GUILayout.Space(10);
 
             if (GUILayout.Button("WEAPONRY")) {
-                string[] foldersToCopy = { "Prefabs" };
-                Create(foldersToCopy, WEAPONRY, "WeaponryTemplate", "Weaponry", TankPart.WEAPONRY);
+                TryCreateProject(WEAPONRY, "WeaponryTemplate", "Weaponry", TankPart.WEAPONRY);
             }
 
             GUILayout.Space(10);
 
             if (GUILayout.Button("SUSPENSION")) {
-                string[] foldersToCopy = { "Prefabs" };
-                Create(foldersToCopy, SUSPENSION, "SuspensionTemplate", "Suspension", TankPart.SUSPENSION);
+                TryCreateProject(SUSPENSION, "SuspensionTemplate", "Suspension", TankPart.SUSPENSION);
             }
-            
+
             GUILayout.Space(10);
-            
+
             if (GUILayout.Button("MAP")) {
-                string[] foldersToCopy = { "Prefabs" };
-                Create(foldersToCopy, MAP, "MapTemplate", "Map", TankPart.NONE);
+                TryCreateProject(MAP, "MapTemplate", "Map", TankPart.NONE);
             }
 
             GUILayout.FlexibleSpace();
+
             if (GUILayout.Button("Open project", GUILayout.Width(200))) {
                 OpenProjectController.ShowWindow();
                 Close();
             }
         }
 
-        private void Create(string[] foldersToCopy, string path, string folderName, string prefabName, TankPart tankPart) {
-            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-            string selectedPath = EditorUtility.OpenFolderPanel("Select folder", path, "");
-            CopyPrefab(folderName, foldersToCopy, selectedPath, prefabName, tankPart);
+        private void TryCreateProject(string basePath, string folderName, string prefabName, TankPart tankPart) {
+            if (string.IsNullOrWhiteSpace(_projectName)) {
+                ColorLogger.LogWarning("Please enter a valid project name.");
+                return;
+            }
+
+            string targetPath = Path.Combine(basePath, _projectName);
+
+            if (Directory.Exists(targetPath)) {
+                ColorLogger.LogFormatted(
+                    "Project with name '{0}' already exists in this category!",
+                    new[] { _projectName },
+                    new[] { "red" },
+                    new[] { true },
+                    ColorLogger.LogLevel.Warning
+                );
+                return;
+            }
+
+            Directory.CreateDirectory(targetPath);
+
+            string[] foldersToCopy = { "Prefabs" };
+            CopyPrefab(folderName, foldersToCopy, targetPath, prefabName, tankPart);
         }
 
         #region Copy
 
-        private void CopyPrefab(string folderName, string[] foldersToCopy, string destPath, string prefabName, TankPart tankPart) {
-            if (string.IsNullOrEmpty(destPath)) return;
+        private void CopyPrefab(string folderName, string[] foldersToCopy, string projectPath, string prefabName,
+            TankPart tankPart) {
+            if (string.IsNullOrEmpty(projectPath)) return;
 
             string basePath = Path.Combine(TEMPLATE, folderName);
-            CopyFolders(basePath, foldersToCopy, destPath);
+            CopyFolders(basePath, foldersToCopy, projectPath);
 
-            string relativePath = "Assets" + destPath.Substring(Application.dataPath.Length);
-            string prefabPath = relativePath + "/Prefabs/" + prefabName;
+            string prefabPath = $"{TEMPLATE}/{prefabName}Template/Prefabs/{prefabName}";
+            
             ProjectManager.CreatePrefab(prefabPath, "default");
-            string metadataPath = ProjectManager.CreateMetadata(new ProjectManager.Metadata(prefabPath, relativePath, tankPart));
+
+            string metadataPath = ProjectManager.CreateMetadata(
+                new ProjectManager.Metadata(prefabPath, projectPath, tankPart));
+
             OpenProjectController.OpenProject(metadataPath);
             Close();
+            ColorLogger.LogFormatted("Project {0} successfully created.",
+                Path.GetFileName(projectPath), "green", true);
         }
 
         private void CopyFolders(string basePath, string[] foldersToImport, string destPath) {
@@ -120,12 +143,10 @@ namespace Editor.Core {
                         new[] { true },
                         ColorLogger.LogLevel.Warning
                     );
-
                 }
             }
 
             AssetDatabase.Refresh();
-            ColorLogger.Log("Selected folders copied successfully!");
         }
 
         private void CopyDirectory(string sourceDir, string destDir) {
@@ -133,6 +154,9 @@ namespace Editor.Core {
 
             foreach (var file in Directory.GetFiles(sourceDir)) {
                 string destFile = Path.Combine(destDir, Path.GetFileName(file));
+
+                if (file.EndsWith(".meta")) //Ignore meta files - automatically creates new
+                    continue;
 
                 if (File.Exists(destFile)) {
                     string existingContent = File.ReadAllText(destFile);
@@ -143,7 +167,6 @@ namespace Editor.Core {
                 }
                 else {
                     File.Copy(file, destFile, true);
-                    ColorLogger.Log($"File copied: {destFile}");
                 }
             }
 
@@ -156,4 +179,4 @@ namespace Editor.Core {
         #endregion
 
     }
-} //END
+}
