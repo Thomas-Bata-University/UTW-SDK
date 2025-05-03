@@ -47,7 +47,7 @@ namespace Editor.Task {
 
             EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
 
-            EditorGUILayout.LabelField("Description", GUILayout.MinWidth(150));
+            EditorGUILayout.LabelField("Tasks to complete", GUILayout.MinWidth(150));
             EditorGUILayout.LabelField("Progress", GUILayout.Width(80));
             EditorGUILayout.LabelField("Done", GUILayout.Width(70));
             EditorGUILayout.LabelField("Action", GUILayout.Width(65));
