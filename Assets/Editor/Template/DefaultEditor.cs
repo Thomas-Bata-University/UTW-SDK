@@ -208,6 +208,18 @@ namespace Editor.Template {
             _assetBundleOptions = new List<string>(bundleNames).ToArray();
         }
 
+        protected GameObject FindInactiveWithTag(string tag) {
+            GameObject[] allGameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+            foreach (GameObject go in allGameObjects) {
+                if (!go.CompareTag(tag)) continue;
+
+                if (go.hideFlags == HideFlags.None && go.scene.IsValid())
+                    return go;
+            }
+
+            return null;
+        }
+        
         #region Style
 
         protected void Space() {

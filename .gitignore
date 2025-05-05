@@ -73,3 +73,6 @@
 
 **/Assets/Projects/*
 **/Assets/AssetBundles/*
+
+_site/
+api/

@@ -115,7 +115,7 @@ namespace Editor.Core {
             string basePath = Path.Combine(TEMPLATE, folderName);
             CopyFolders(basePath, foldersToCopy, projectPath);
 
-            string prefabPath = $"{TEMPLATE}/{prefabName}Template/Prefabs/{prefabName}";
+            string prefabPath = Path.Combine(projectPath, "Prefabs", prefabName);
             
             ProjectManager.CreatePrefab(prefabPath, "default");
 

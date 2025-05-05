@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6369044586230798394}
   - component: {fileID: 3252293037670092546}
   - component: {fileID: 886949237019222682}
-  - component: {fileID: 2688142622427675204}
+  - component: {fileID: 7183911621422140347}
   m_Layer: 0
   m_Name: Barrel
   m_TagString: BarrelVisual
@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1470494341826824287}
-  m_Mesh: {fileID: 4300000, guid: 65dd255bef65aff4b9dfd3bb3fb9afa0, type: 2}
+  m_Mesh: {fileID: 0}
 --- !u!23 &886949237019222682
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d64a2386a22ae5147928ce9fad212b11, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2688142622427675204
+--- !u!64 &7183911621422140347
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,7 +105,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: b58361b1c79ad71449b78731bbcc2e01, type: 2}
+  m_Mesh: {fileID: 0}
 --- !u!1 &3603277438151757628
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 5326411295773467522}
   - component: {fileID: 7332252961357682771}
   - component: {fileID: 9064179035442768455}
-  - component: {fileID: 1713353085768931031}
+  - component: {fileID: 9075488085468537421}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: WeaponryVisual
@@ -147,7 +147,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3603277438151757628}
-  m_Mesh: {fileID: 4300000, guid: c73d0ca101737514c9b53fc4c7dff529, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 973db594e4265f14782ce285e565f98f, type: 2}
 --- !u!23 &9064179035442768455
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -168,7 +168,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d64a2386a22ae5147928ce9fad212b11, type: 2}
+  - {fileID: 2100000, guid: 583d81003dfb7384580bb0e540bf7f4f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -190,7 +190,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1713353085768931031
+--- !u!64 &9075488085468537421
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,7 +211,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: b4f7b7d92de043945a9e7ab6dded5f12, type: 2}
+  m_Mesh: {fileID: 0}
 --- !u!1 &5856145659611516083
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,6 +243,112 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3306352804613142493}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6103958562635522989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3361858534005439234}
+  - component: {fileID: 2314981838891625813}
+  - component: {fileID: 859436874861409628}
+  - component: {fileID: 3266234832626075307}
+  m_Layer: 0
+  m_Name: Mantlet
+  m_TagString: MantletVisual
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3361858534005439234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6103958562635522989}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3306352804613142493}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &2314981838891625813
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6103958562635522989}
+  m_Mesh: {fileID: 4300000, guid: 345f34bb8a2e033499f68beee5381ff2, type: 2}
+--- !u!23 &859436874861409628
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6103958562635522989}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 583d81003dfb7384580bb0e540bf7f4f, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3266234832626075307
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6103958562635522989}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &6742783974466620211
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +376,7 @@ Transform:
   m_GameObject: {fileID: 6742783974466620211}
   serializedVersion: 2
   m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: -0.039, y: 0.885, z: 0.934}
+  m_LocalPosition: {x: 0, y: 0.7805, z: 0.452}
   m_LocalScale: {x: 10, y: 9.999999, z: 9.999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -338,7 +444,7 @@ GameObject:
   - component: {fileID: 8121708989848331637}
   m_Layer: 0
   m_Name: Weaponry
-  m_TagString: NoBundle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -358,6 +464,7 @@ Transform:
   m_Children:
   - {fileID: 5326411295773467522}
   - {fileID: 6369044586230798394}
+  - {fileID: 3361858534005439234}
   - {fileID: 6515940058706980637}
   - {fileID: 6258031921632629129}
   m_Father: {fileID: 0}
@@ -375,18 +482,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mass: 1000
-  Mesh: {fileID: 4300000, guid: c73d0ca101737514c9b53fc4c7dff529, type: 2}
+  Mesh: {fileID: 4300000, guid: 973db594e4265f14782ce285e565f98f, type: 2}
   NumOfMat: 1
   Materials:
-  - {fileID: 2100000, guid: d64a2386a22ae5147928ce9fad212b11, type: 2}
+  - {fileID: 2100000, guid: 583d81003dfb7384580bb0e540bf7f4f, type: 2}
   NumOfCol: 1
   Colliders:
-  - {fileID: 4300000, guid: b4f7b7d92de043945a9e7ab6dded5f12, type: 2}
-  barrelMass: 0
-  barrelMesh: {fileID: 4300000, guid: 65dd255bef65aff4b9dfd3bb3fb9afa0, type: 2}
+  - {fileID: 0}
+  useBarrel: 1
+  barrelMass: 1
+  barrelMesh: {fileID: 0}
   barrelNumOfMat: 1
   barrelMaterials:
-  - {fileID: 2100000, guid: d64a2386a22ae5147928ce9fad212b11, type: 2}
+  - {fileID: 0}
   barrelNumOfCol: 1
   barrelColliders:
-  - {fileID: 4300000, guid: b58361b1c79ad71449b78731bbcc2e01, type: 2}
+  - {fileID: 0}
+  useMantlet: 1
+  mantletMass: 1
+  mantletMesh: {fileID: 4300000, guid: 345f34bb8a2e033499f68beee5381ff2, type: 2}
+  mantletNumOfMat: 1
+  mantletMaterials:
+  - {fileID: 2100000, guid: 583d81003dfb7384580bb0e540bf7f4f, type: 2}
+  mantletNumOfCol: 1
+  mantletColliders:
+  - {fileID: 0}

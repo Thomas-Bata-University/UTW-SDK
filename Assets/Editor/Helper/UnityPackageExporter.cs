@@ -9,7 +9,11 @@ namespace Editor.Helper {
             string[] assetsToInclude = {
                 "Assets/Editor",
                 "Assets/Other",
-                "Packages"
+                "Packages",
+                "ProjectSettings/TagManager.asset",
+                "ProjectSettings/GraphicsSettings.asset",
+                "ProjectSettings/EditorBuildSettings.asset",
+                "ProjectSettings/InputManager.asset"
             };
 
             string exportDirectory = "C:/GameDev";

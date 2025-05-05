@@ -11,7 +11,7 @@ namespace Editor.Const {
 
         public const string TEMPLATE = "Assets/Other/Template";
         public const string ASSET_BUNDLE = "Assets/AssetBundles";
-        public const string PROJECT = "Assets/Projets";
+        public const string PROJECT = "Assets/Projects";
 
     }
 } //END

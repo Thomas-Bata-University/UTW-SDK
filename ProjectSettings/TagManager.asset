@@ -15,9 +15,9 @@ TagManager:
   - HullMountPoint
   - TurretMountPoint
   - CannonMountPoint
-  - SuspensionMountPoint
   - MountPoint
   - BarrelVisual
+  - MantletVisual
   layers:
   - Default
   - TransparentFX
