@@ -26,6 +26,9 @@ namespace Editor.Helper {
 
             if (!Directory.Exists(AssetPaths.PROJECT))
                 Directory.CreateDirectory(AssetPaths.PROJECT);
+            
+            if (!Directory.Exists(AssetPaths.PROJECT_DATA))
+                Directory.CreateDirectory(AssetPaths.PROJECT_DATA);
         }
 
         private static void OpenMyEditorWindow() {
