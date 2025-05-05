@@ -18,6 +18,10 @@ TagManager:
   - MountPoint
   - BarrelVisual
   - MantletVisual
+  - EngineModule
+  - DriverModule
+  - ModuleParent
+  - MountPointParent
   layers:
   - Default
   - TransparentFX

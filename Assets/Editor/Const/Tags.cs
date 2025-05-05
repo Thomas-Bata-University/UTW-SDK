@@ -12,10 +12,18 @@ namespace Editor.Const {
 
         public const string PLATES = "Plates";
         public const string PLATE_PARENT = "PlateParent";
+        
         public const string NO_BUNDLE = "NoBundle";
         public const string UNTAGGED = "Untagged";
-        public const string INTERNAL_MODULE = "InternalModule";
         
+        //Modules
+        public const string MODULE_PARENT = "ModuleParent";
+        public const string INTERNAL_MODULE = "InternalModule";
+        public const string ENGINE_MODULE = "EngineModule";
+        public const string DRIVER_MODULE = "DriverModule";
+        
+        //Mount Points
+        public const string MOUNT_POINT_PARENT = "MountPointParent";
         public const string HULL_MOUNT_POINT = "HullMountPoint";
         public const string TURRET_MOUNT_POINT = "TurretMountPoint";
         public const string CANNON_MOUNT_POINT = "CannonMountPoint";

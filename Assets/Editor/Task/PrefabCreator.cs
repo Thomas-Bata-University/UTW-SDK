@@ -1,5 +1,4 @@
 using System.Linq;
-using Editor.Const;
 using Editor.Helper;
 using UnityEditor;
 using UnityEngine;
@@ -8,28 +7,17 @@ using UnityEngine.SceneManagement;
 namespace Editor.Task {
     public static class PrefabCreator {
 
-        public static void CreateMountPoint(string prefabPath, string newName, string tag) {
-            var parent = GetFirstRootObject();
-            CreatePrefab(prefabPath, newName, tag, parent, "mount point");
-        }
-
-        public static void CreateInternalModule(string prefabPath, string newName, string tag) {
-            var parent = GetFirstRootObject();
-            CreatePrefab(prefabPath, newName, tag, parent, "internal module");
-        }
-
-        public static void CreatePlate(string prefabPath, string newName, string tag) {
-            var parent = GameObject.FindGameObjectWithTag(Tags.PLATE_PARENT);
+        public static void CreatePrefab(string prefabPath, string newName, string tag, string parentTag) {
+            var parent = GameObject.FindGameObjectWithTag(parentTag);
             if (parent == null) {
                 ColorLogger.LogWarning(
-                    $"No parent with tag {Tags.PLATE_PARENT} found. Plate will be placed at scene root.");
+                    $"No parent with tag {parentTag} found. Plate will be placed at scene root.");
             }
 
-            CreatePrefab(prefabPath, newName, tag, parent, "plate");
+            CreatePrefab(prefabPath, newName, tag, parent);
         }
 
-        private static void CreatePrefab(string prefabPath, string newName, string tag, GameObject parent,
-            string objectType) {
+        private static void CreatePrefab(string prefabPath, string newName, string tag, GameObject parent) {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
             if (prefab == null) {
                 ColorLogger.LogError($"Prefab not found at path: {prefabPath}");
@@ -38,7 +26,7 @@ namespace Editor.Task {
 
             var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
             if (instance == null) {
-                ColorLogger.LogError($"Failed to instantiate {objectType} prefab!");
+                ColorLogger.LogError($"Failed to instantiate prefab!");
                 return;
             }
 
@@ -52,8 +40,8 @@ namespace Editor.Task {
                 instance.transform.SetParent(parent.transform, true);
                 IconSetter.SetIcon(instance);
                 ColorLogger.LogFormatted("Created {0} under parent {1}",
-                        new[] { instance.name, parent.name },
-                        bolds: new[] { true, true });
+                    new[] { instance.name, parent.name },
+                    bolds: new[] { true, true });
             }
             else {
                 ColorLogger.LogFormatted("Created {0} at scene root.", instance.name, bold: true);

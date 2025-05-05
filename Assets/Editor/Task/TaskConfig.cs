@@ -34,18 +34,20 @@ namespace Editor.Task {
                     CreateCoreTask(Tags.HULL_VISUAL, "Hull"),
                     CreatePlateTask(Tags.PLATES, 5, "Create plates", "There must be at least 5 plate objects."),
                     CreateMountPointTask(Tags.TURRET_MOUNT_POINT, "turret"),
-                    CreateInternalModuleTask(Tags.INTERNAL_MODULE, "crew")
+                    CreateModuleTask(Tags.ENGINE_MODULE, Tags.MODULE_PARENT, "engine", "EngineModule", "module"),
+                    CreateModuleTask(Tags.DRIVER_MODULE, Tags.MODULE_PARENT, "driver", "DriverModule", "module")
                 },
                 TankPart.TURRET => new List<CoreTask> {
                     CreateCoreTask(Tags.TURRET_VISUAL, "Turret"),
                     CreatePlateTask(Tags.PLATES, 5, "Create plates", "There must be at least 5 plate objects."),
                     CreateMountPointTask(Tags.CANNON_MOUNT_POINT, "cannon"),
                     CreateMountPointTask(Tags.HULL_MOUNT_POINT, "hull"),
-                    CreateInternalModuleTask(Tags.INTERNAL_MODULE, "crew")
+                    CreateModuleTask(Tags.INTERNAL_MODULE, Tags.MODULE_PARENT, "crew", "InternalModule", "module")
                 },
                 TankPart.WEAPONRY => new List<CoreTask> {
                     CreateCoreTask(Tags.WEAPONRY_VISUAL, "Cannon"),
-                    CreateCoreTask(Tags.TURRET_MOUNT_POINT, "Barrel"),
+                    CreateCoreTask(Tags.BARREL_VISUAL, "Barrel"),
+                    CreateCoreTask(Tags.MANTLET_VISUAL, "Mantlet"),
                     CreateMountPointTask(Tags.TURRET_MOUNT_POINT, "turret"),
                 },
                 TankPart.SUSPENSION => new List<CoreTask> {
@@ -93,11 +95,11 @@ namespace Editor.Task {
                 TaskCondition = () => GameObject.FindGameObjectsWithTag(tag).Length >= required,
                 SceneObjectCounter = () => GameObject.FindGameObjectsWithTag(tag).Length,
                 ValidationCondition = p => HasTaggedCountGt(p, tag, required),
-                
+
                 OptionalAction = () => {
-                    PrefabCreator.CreatePlate(
-                        AssetPaths.TEMPLATE + "/PlateTemplate/Prefabs/Plate.prefab", 
-                        "armor_plate", tag);
+                    PrefabCreator.CreatePrefab(
+                        AssetPaths.TEMPLATE + "/PlateTemplate/Prefabs/Plate.prefab",
+                        "armor_plate", tag, Tags.PLATE_PARENT);
                 },
                 OptionalActionLabel = "Create"
             };
@@ -113,27 +115,28 @@ namespace Editor.Task {
                 ValidationCondition = p => HasTaggedCountEq(p, tag, 1),
 
                 OptionalAction = () => {
-                    PrefabCreator.CreateMountPoint(
+                    PrefabCreator.CreatePrefab(
                         AssetPaths.TEMPLATE + "/MountPoint/MountPoint.prefab",
-                        mountPointName + "_MountPoint", tag);
+                        mountPointName + "_MountPoint", tag, Tags.MOUNT_POINT_PARENT);
                 },
                 OptionalActionLabel = "Create"
             };
         }
-        
-        private static CoreTask CreateInternalModuleTask(string tag, string internalModuleName) {
+
+        private static CoreTask CreateModuleTask(string tag, string parentTag, string objectName, string prefabSubPath,
+            string prefabSuffix) {
             return new CoreTask {
-                TaskDescription = $"Create {internalModuleName} Internal Module",
-                ValidationDescription = $"There must be just 1 {internalModuleName} InternalModule.",
+                TaskDescription = $"Create {objectName} {prefabSuffix.Replace("_", " ")}",
+                ValidationDescription = $"There must be just 1 {objectName} {prefabSuffix.Replace("_", "")}.",
                 RequiredCount = 1,
                 TaskCondition = () => GameObject.FindGameObjectsWithTag(tag).Length == 1,
                 SceneObjectCounter = () => GameObject.FindGameObjectsWithTag(tag).Length,
                 ValidationCondition = p => HasTaggedCountEq(p, tag, 1),
 
                 OptionalAction = () => {
-                    PrefabCreator.CreateMountPoint(
-                        AssetPaths.TEMPLATE + "/InternalModule/InternalModule.prefab",
-                        internalModuleName + "_InternalModule", tag);
+                    PrefabCreator.CreatePrefab(
+                        AssetPaths.TEMPLATE + $"/Modules/{prefabSubPath}/{prefabSubPath}.prefab",
+                        $"{objectName}_{prefabSuffix}", tag, parentTag);
                 },
                 OptionalActionLabel = "Create"
             };
