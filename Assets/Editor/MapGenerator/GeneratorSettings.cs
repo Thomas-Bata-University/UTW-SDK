@@ -159,7 +159,6 @@ namespace Editor.MapGenerator
                 BiomeHeightModifier.ModifyHeightsByBiome(heightMap, biomeMap, selectedBiomes);
             }
 
-            // 4. Vytvoření Mesh objektu terénu z výškové (a případně i biomické) mapy
             Mesh terrainMesh = MeshTerrainGenerator.GenerateTerrainMesh(heightMap, biomeMap, selectedBiomes);
             
             ErosionSimulator.ApplyThermalErosion(heightMap, iterations: 10, talus: 1.0f);
