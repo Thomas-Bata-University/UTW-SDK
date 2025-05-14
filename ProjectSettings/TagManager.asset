@@ -10,6 +10,7 @@ TagManager:
   - WeaponryVisual
   - SuspensionVisual
   - NoBundle
+  - MapVisual
   layers:
   - Default
   - TransparentFX

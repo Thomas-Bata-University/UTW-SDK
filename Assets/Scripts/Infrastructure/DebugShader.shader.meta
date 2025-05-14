@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: 91a10851cf974c25b9eef30aa08b9cf4
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _Layer0_Albedo: {fileID: 2800000, guid: 0b59c495bf285c442b1b799c94a9f8aa, type: 3}
+  - _Layer0_MetallicSmoothnessMap: {fileID: 2800000, guid: 33e332af78571f249aa14092c01288cb, type: 3}
+  - _Layer0_NormalMap: {fileID: 2800000, guid: 28a478660ea9d9541b2118c5e95cbb4e, type: 3}
+  - _Layer0_OcclusionMap: {instanceID: 0}
+  - _Layer1_Albedo: {fileID: 2800000, guid: e318f31bebce62d48a648da3f8ba56c9, type: 3}
+  - _Layer1_MetallicSmoothnessMap: {fileID: 2800000, guid: 0f48eac8617d0de4cbc056e1734e798b, type: 3}
+  - _Layer1_NormalMap: {fileID: 2800000, guid: eb70932bab3d971408c011dbb45767a9, type: 3}
+  - _Layer1_OcclusionMap: {instanceID: 0}
+  - _Layer2_Albedo: {fileID: 2800000, guid: bde7423cb35c64746b6b24c63040dcb0, type: 3}
+  - _Layer2_MetallicSmoothnessMap: {fileID: 2800000, guid: 61a6ad6be0be2b444addf88107c0fda2, type: 3}
+  - _Layer2_NormalMap: {fileID: 2800000, guid: b5fff5575723f4a40bfa0f147cb9c27f, type: 3}
+  - _Layer2_OcclusionMap: {instanceID: 0}
+  - _Layer3_Albedo: {fileID: 2800000, guid: 8e255f57d15705e488d4db5425239501, type: 3}
+  - _Layer3_MetallicSmoothnessMap: {fileID: 2800000, guid: 37bf2efdabb269f4b891344af9233d9e, type: 3}
+  - _Layer3_NormalMap: {fileID: 2800000, guid: 297a3ddfc901318499e15b3a0c8ec74d, type: 3}
+  - _Layer3_OcclusionMap: {instanceID: 0}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

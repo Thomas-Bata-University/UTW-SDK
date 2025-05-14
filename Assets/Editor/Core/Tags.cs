@@ -8,6 +8,7 @@ namespace Editor.Core {
         public const string PLATES = "Plates";
         public const string NO_BUNDLE = "NoBundle";
         public const string UNTAGGED = "Untagged";
+        public const string MAP_VISUAL = "MapVisual";
 
     }
 } //END

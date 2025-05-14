@@ -97,6 +97,7 @@ namespace Editor.Core {
             public string assetBundle;
 
             public bool isMap;
+            public int seed;
 
             public string created;
 
@@ -108,6 +109,7 @@ namespace Editor.Core {
                 this.created = DateTime.Now.ToString("yyyy MMMM dd", new CultureInfo("en-US"));
                 this.tankPart = tankPart.ToString();
                 this.isMap = tankPart == TankPart.NONE;
+                this.seed = 12345;
             }
 
         }

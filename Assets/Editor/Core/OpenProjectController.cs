@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using Editor.MapGenerator;
 using UnityEditor;
 using UnityEngine;
 using static Editor.Core.AssetPaths;
@@ -67,8 +68,7 @@ namespace Editor.Core {
             GUILayout.Space(20);
             
             if (metadata.isMap)
-                //TODO tady si zavolej svou metodu ze sve tridy
-                Debug.Log("franto pridej si tu co chces");
+                GeneratorSettingsEditor.ShowWindow();
             else
                 Debug.Log("NA TOTO MI NESAHEJ");
 
