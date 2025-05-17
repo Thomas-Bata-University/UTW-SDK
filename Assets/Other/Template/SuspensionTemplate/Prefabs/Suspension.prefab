@@ -49,11 +49,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mass: 1000
-  Mesh: {fileID: 0}
+  Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   NumOfMat: 1
-  Materials: []
+  Materials:
+  - {fileID: 2100000, guid: bd995e76b8c79f94f9aa2ecb12cad46a, type: 2}
   NumOfCol: 1
-  Colliders: []
+  Colliders:
+  - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &3220988769657069144
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,7 +67,7 @@ GameObject:
   - component: {fileID: 8403179848477189383}
   - component: {fileID: 7687658006878114665}
   - component: {fileID: 7642075609844094748}
-  - component: {fileID: 9066872004854622148}
+  - component: {fileID: 4301328305737183125}
   m_Layer: 0
   m_Name: Graphic
   m_TagString: SuspensionVisual
@@ -138,7 +140,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &9066872004854622148
+--- !u!64 &4301328305737183125
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

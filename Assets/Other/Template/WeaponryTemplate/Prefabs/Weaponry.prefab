@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6369044586230798394}
   - component: {fileID: 3252293037670092546}
   - component: {fileID: 886949237019222682}
-  - component: {fileID: 7183911621422140347}
+  - component: {fileID: 7128584630980396395}
   m_Layer: 0
   m_Name: Barrel
   m_TagString: BarrelVisual
@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1470494341826824287}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 973db594e4265f14782ce285e565f98f, type: 2}
 --- !u!23 &886949237019222682
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 583d81003dfb7384580bb0e540bf7f4f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7183911621422140347
+--- !u!64 &7128584630980396395
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,7 +105,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 973db594e4265f14782ce285e565f98f, type: 2}
 --- !u!1 &2920857323216595923
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 5326411295773467522}
   - component: {fileID: 7332252961357682771}
   - component: {fileID: 9064179035442768455}
-  - component: {fileID: 9075488085468537421}
+  - component: {fileID: 73395183611678953}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: WeaponryVisual
@@ -178,7 +178,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3603277438151757628}
-  m_Mesh: {fileID: 4300000, guid: 973db594e4265f14782ce285e565f98f, type: 2}
+  m_Mesh: {fileID: 0}
 --- !u!23 &9064179035442768455
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -199,7 +199,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 583d81003dfb7384580bb0e540bf7f4f, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -221,7 +221,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &9075488085468537421
+--- !u!64 &73395183611678953
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 3361858534005439234}
   - component: {fileID: 2314981838891625813}
   - component: {fileID: 859436874861409628}
-  - component: {fileID: 3266234832626075307}
+  - component: {fileID: 6900255735280828481}
   m_Layer: 0
   m_Name: Mantlet
   m_TagString: MantletVisual
@@ -390,7 +390,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3266234832626075307
+--- !u!64 &6900255735280828481
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -411,7 +411,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 345f34bb8a2e033499f68beee5381ff2, type: 2}
 --- !u!1 &6742783974466620211
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,7 +504,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3306352804613142493}
-  - component: {fileID: 8121708989848331637}
+  - component: {fileID: 492718732905575119}
   m_Layer: 0
   m_Name: Weaponry
   m_TagString: Untagged
@@ -521,7 +521,7 @@ Transform:
   m_GameObject: {fileID: 8756579298241759986}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.9867327, y: 0, z: 2.3800068}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -533,7 +533,7 @@ Transform:
   - {fileID: 306780182834515635}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8121708989848331637
+--- !u!114 &492718732905575119
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -542,32 +542,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 8756579298241759986}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca5cf34ee4a0e234fb8b39148fbb54a8, type: 3}
+  m_Script: {fileID: 11500000, guid: f4b64cc18c0969443a7fde8b6fcd3631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Mass: 1000
-  Mesh: {fileID: 4300000, guid: 973db594e4265f14782ce285e565f98f, type: 2}
+  Mesh: {fileID: 0}
   NumOfMat: 1
   Materials:
-  - {fileID: 2100000, guid: 583d81003dfb7384580bb0e540bf7f4f, type: 2}
+  - {fileID: 0}
   NumOfCol: 1
   Colliders:
   - {fileID: 0}
   useBarrel: 1
-  barrelMass: 1
-  barrelMesh: {fileID: 0}
+  barrelMass: 1000
+  barrelMesh: {fileID: 4300000, guid: 973db594e4265f14782ce285e565f98f, type: 2}
   barrelNumOfMat: 1
   barrelMaterials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 583d81003dfb7384580bb0e540bf7f4f, type: 2}
   barrelNumOfCol: 1
   barrelColliders:
-  - {fileID: 0}
+  - {fileID: 4300000, guid: 973db594e4265f14782ce285e565f98f, type: 2}
   useMantlet: 1
-  mantletMass: 1
+  mantletMass: 1000
   mantletMesh: {fileID: 4300000, guid: 345f34bb8a2e033499f68beee5381ff2, type: 2}
   mantletNumOfMat: 1
   mantletMaterials:
   - {fileID: 2100000, guid: 583d81003dfb7384580bb0e540bf7f4f, type: 2}
   mantletNumOfCol: 1
   mantletColliders:
-  - {fileID: 0}
+  - {fileID: 4300000, guid: 345f34bb8a2e033499f68beee5381ff2, type: 2}

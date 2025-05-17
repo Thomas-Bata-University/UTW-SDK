@@ -88,6 +88,13 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.utw.templatedata": {
+      "version": "https://github.com/Thomas-Bata-University/UTW-Library.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "1e3ff40f0161bc51113409fc63b181939b28637d"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

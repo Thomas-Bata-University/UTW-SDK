@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5572585535799788146}
-  - component: {fileID: 5128005118605016169}
+  - component: {fileID: 1483416164111666029}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 504020884706549861}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.157691, y: 0, z: 3.6126997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -36,7 +36,7 @@ Transform:
   - {fileID: 2136729708005315867}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5128005118605016169
+--- !u!114 &1483416164111666029
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 504020884706549861}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20db86fffa094b64e8b663f3fb5e1a39, type: 3}
+  m_Script: {fileID: 11500000, guid: 3572c02f20029ce4d84bd261780df081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Mass: 1000
@@ -55,7 +55,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 67bfab4d715386e4cbd637d8ec77c5b8, type: 2}
   NumOfCol: 1
   Colliders:
-  - {fileID: 0}
+  - {fileID: 4300000, guid: 3ab93a08379dbbf4081a0aed4b1f42c6, type: 2}
 --- !u!1 &1112291025926741260
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,7 +1066,7 @@ GameObject:
   - component: {fileID: 9127768100933672682}
   - component: {fileID: 7724183249247038827}
   - component: {fileID: 257162254739664227}
-  - component: {fileID: 2955962316034852648}
+  - component: {fileID: 4068223573707805609}
   m_Layer: 0
   m_Name: Graphic
   m_TagString: TurretVisual
@@ -1139,7 +1139,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2955962316034852648
+--- !u!64 &4068223573707805609
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1160,4 +1160,4 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 3ab93a08379dbbf4081a0aed4b1f42c6, type: 2}
