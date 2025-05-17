@@ -99,10 +99,20 @@ namespace Editor.Core {
                 ProjectManager.RemovePrefab(metadata);
                 MetaData = null;
                 TaskListWindow.tasks = null;
+                DestroyPreviewObjects();
                 ColorLogger.LogFormatted("Project {0} successfully closed.", metadata.projectName, "green", true);
             }
 
             GUILayout.EndHorizontal();
+        }
+        
+        private static void DestroyPreviewObjects() {
+            GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+            foreach (GameObject go in allObjects) {
+                if (go.name.StartsWith("Preview_") && go.hideFlags == HideFlags.HideAndDontSave) {
+                    DestroyImmediate(go);
+                }
+            }
         }
 
         private void DisplayFolderContents(string folderPath) {

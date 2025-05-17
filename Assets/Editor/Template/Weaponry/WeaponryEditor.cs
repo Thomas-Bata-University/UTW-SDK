@@ -15,9 +15,6 @@ namespace Editor.Template.Weaponry {
         private PartProperties _barrelPart;
         private PartProperties _mantletPart;
 
-        private bool _useBarrel = true;
-        private bool _useMantlet = true;
-
         private SerializedProperty useBarrel;
         private SerializedProperty useMantlet;
 

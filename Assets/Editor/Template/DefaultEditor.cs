@@ -24,7 +24,10 @@ namespace Editor.Template {
             foreach (var part in parts) {
                 if (part.visualObject == null) continue;
 
-                string partName = part.visualObject.transform.parent.name;
+                string partName = part.visualObject.transform.parent != null
+                    ? part.visualObject.transform.parent.name
+                    : part.visualObject.name;
+
                 EditorGUILayout.LabelField($"{partName} Settings", EditorStyles.boldLabel);
 
                 CreateMass(part.mass);
@@ -45,10 +48,12 @@ namespace Editor.Template {
         }
 
         protected void CreateMass(SerializedProperty prop, string text = "Mass", string tooltip = "Mass of the part.") {
+            EditorGUIUtility.labelWidth = 155;
             EditorGUILayout.IntSlider(prop, 1, 100000, new GUIContent(text, tooltip));
         }
-
+        
         protected void CreateMesh(SerializedProperty prop, string text = "Mesh", string tooltip = "Mesh") {
+            EditorGUIUtility.labelWidth = 155;
             prop.objectReferenceValue = EditorGUILayout.ObjectField(
                 new GUIContent(text, tooltip),
                 prop.objectReferenceValue,

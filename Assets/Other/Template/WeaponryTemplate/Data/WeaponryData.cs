@@ -10,7 +10,7 @@ namespace Other.Template.WeaponryTemplate.Data {
         public Material[] barrelMaterials;
         public int barrelNumOfCol = 1;
         public Mesh[] barrelColliders;
-        
+
         public bool useMantlet = false;
         public int mantletMass = 1000;
         public Mesh mantletMesh;
@@ -18,5 +18,6 @@ namespace Other.Template.WeaponryTemplate.Data {
         public Material[] mantletMaterials;
         public int mantletNumOfCol = 1;
         public Mesh[] mantletColliders;
+
     }
 } //END

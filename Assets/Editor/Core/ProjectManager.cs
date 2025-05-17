@@ -54,6 +54,7 @@ namespace Editor.Core {
             AssetDatabase.SaveAssets();
             SetAssetBundle(fullPath, name);
             EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
+            Selection.activeObject = instance;
         }
 
         public static void OverridePrefab(Metadata metadata) {
