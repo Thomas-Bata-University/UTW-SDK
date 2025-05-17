@@ -2,7 +2,7 @@ namespace Other.Template.HullTemplate.Data {
     public class HullData : DefaultData {
 
         public bool showPreview = true;
-        public HullSize hullSize = HullSize.MEDIUM;
+        public HullSize hullSize = HullSize.SUPER_LIGHT;
 
     }
 } //END

@@ -106,7 +106,7 @@ namespace Editor.Core {
             GUILayout.EndHorizontal();
         }
         
-        private static void DestroyPreviewObjects() {
+        public static void DestroyPreviewObjects() {
             GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
             foreach (GameObject go in allObjects) {
                 if (go.name.StartsWith("Preview_") && go.hideFlags == HideFlags.HideAndDontSave) {
