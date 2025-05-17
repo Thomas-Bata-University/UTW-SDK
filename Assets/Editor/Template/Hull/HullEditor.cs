@@ -10,13 +10,18 @@ namespace Editor.Template.Hull {
 
         private SerializedProperty _hullSize;
         private SerializedProperty _showPreview;
+        private SerializedProperty _trackOffset;
+
         private GameObject _currentPreview;
+
+        private const float TrackMaxOffset = 5f;
 
         private void OnEnable() {
             visual = GameObject.FindWithTag(Tags.HULL_VISUAL);
 
             _hullSize = serializedObject.FindProperty("hullSize");
             _showPreview = serializedObject.FindProperty("showPreview");
+            _trackOffset = serializedObject.FindProperty("trackOffset");
 
             RegisterPart(visual);
 
@@ -82,6 +87,16 @@ namespace Editor.Template.Hull {
                     }
                 }
             }
+
+            EditorGUI.BeginChangeCheck();
+            EditorGUILayout.Slider(_trackOffset, 0, TrackMaxOffset, new GUIContent("Track Offset"));
+            if (EditorGUI.EndChangeCheck()) {
+                serializedObject.ApplyModifiedProperties();
+                UpdateTrackOffset();
+            }
+
+            float actualDistance = _trackOffset != null ? _trackOffset.floatValue * 2f : 0f;
+            EditorGUILayout.LabelField("Distance between tracks", $"{actualDistance:F2} meters");
         }
 
         private void CreatePreview(HullSize size) {
@@ -95,23 +110,14 @@ namespace Editor.Template.Hull {
             if (prefab != null) {
                 _currentPreview = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
                 _currentPreview.name = $"Preview_{size}";
+
                 ApplyHideFlagsRecursively(_currentPreview);
-            } else {
+
+                UpdateTrackOffset();
+            }
+            else {
                 Debug.LogWarning($"Prefab not found at path: {assetPath}");
             }
-        }
-
-        private void DestroyExistingPreview() {
-            var previews = FindObjectsOfType<GameObject>();
-            Debug.Log(previews.Length);
-            foreach (var go in previews) {
-                if (go.name.StartsWith("Preview_") && go.hideFlags == HideFlags.HideAndDontSave) {
-                    Debug.Log($"Destroyed {go.name}");
-                    DestroyImmediate(go);
-                }
-            }
-
-            _currentPreview = null;
         }
 
         private void ApplyHideFlagsRecursively(GameObject root) {
@@ -120,6 +126,25 @@ namespace Editor.Template.Hull {
                 go.hideFlags = HideFlags.HideAndDontSave | HideFlags.NotEditable;
                 SceneVisibilityManager.instance.DisablePicking(go, true);
             }
+        }
+
+        private void UpdateTrackOffset() {
+            if (_currentPreview == null || _trackOffset == null) return;
+
+            float offset = _trackOffset.floatValue;
+
+            Transform left = _currentPreview.transform.Find("Left");
+            Transform right = _currentPreview.transform.Find("Right");
+
+            if (left != null) {
+                left.localPosition = new Vector3(-offset, left.localPosition.y, left.localPosition.z);
+            }
+
+            if (right != null) {
+                right.localPosition = new Vector3(offset, right.localPosition.y, right.localPosition.z);
+            }
+
+            SceneView.RepaintAll();
         }
 
     }
