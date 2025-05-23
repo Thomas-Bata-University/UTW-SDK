@@ -60,9 +60,20 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.probuilder": {
+      "version": "5.1.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.imgui": "1.0.0",
+        "com.unity.modules.physics": "1.0.0",
+        "com.unity.settings-manager": "1.0.3"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.settings-manager": {
       "version": "2.0.1",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -89,11 +100,10 @@
       "url": "https://packages.unity.com"
     },
     "com.utw.templatedata": {
-      "version": "https://github.com/Thomas-Bata-University/UTW-Library.git",
+      "version": "file:com.utw.templatedata",
       "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "1e3ff40f0161bc51113409fc63b181939b28637d"
+      "source": "embedded",
+      "dependencies": {}
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

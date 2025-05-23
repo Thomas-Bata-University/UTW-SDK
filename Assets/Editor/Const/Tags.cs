@@ -3,7 +3,11 @@ namespace Editor.Const {
 
         public const string HULL_VISUAL = "HullVisual";
         public const string TURRET_VISUAL = "TurretVisual";
+        
+        //Suspension
         public const string SUSPENSION_VISUAL = "SuspensionVisual";
+        public const string SPROCKET_VISUAL = "SprocketVisual";
+        public const string IDLER_VISUAL = "IdlerVisual";
         
         //Weaponry
         public const string WEAPONRY_VISUAL = "WeaponryVisual";

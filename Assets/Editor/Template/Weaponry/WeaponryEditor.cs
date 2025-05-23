@@ -1,5 +1,5 @@
 using Editor.Const;
-using Other.Template.WeaponryTemplate.Data;
+using Other.Template;
 using UnityEditor;
 using UnityEngine;
 

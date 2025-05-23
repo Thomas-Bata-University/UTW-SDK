@@ -22,6 +22,8 @@ TagManager:
   - DriverModule
   - ModuleParent
   - MountPointParent
+  - SprocketVisual
+  - IdlerVisual
   layers:
   - Default
   - TransparentFX

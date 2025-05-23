@@ -24,9 +24,7 @@ namespace Editor.Template {
             foreach (var part in parts) {
                 if (part.visualObject == null) continue;
 
-                string partName = part.visualObject.transform.parent != null
-                    ? part.visualObject.transform.parent.name
-                    : part.visualObject.name;
+                string partName =  part.visualObject.name;
 
                 EditorGUILayout.LabelField($"{partName} Settings", EditorStyles.boldLabel);
 

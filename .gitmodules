@@ -1,0 +1,3 @@
+[submodule "Packages/com.utw.templatedata"]
+	path = Packages/com.utw.templatedata
+	url = https://github.com/Thomas-Bata-University/UTW-Library.git

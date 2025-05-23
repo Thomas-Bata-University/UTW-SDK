@@ -180,7 +180,7 @@ MonoBehaviour:
   - {fileID: 4300000, guid: 05d939b913cf9e749a791a89520e2de1, type: 2}
   showPreview: 1
   trackOffset: 1
-  hullSize: 0
+  tankSize: 0
 --- !u!1 &1062422248763677653
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,7 +1110,7 @@ GameObject:
   - component: {fileID: 257162254739664227}
   - component: {fileID: 3639954291660592348}
   m_Layer: 0
-  m_Name: Graphic
+  m_Name: Hull data
   m_TagString: HullVisual
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

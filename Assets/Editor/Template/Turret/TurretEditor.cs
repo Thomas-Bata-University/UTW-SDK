@@ -1,6 +1,6 @@
 using Editor.Const;
 using Editor.Core;
-using Other.Template.TurretTemplate.Data;
+using Other.Template;
 using UnityEditor;
 using UnityEngine;
 

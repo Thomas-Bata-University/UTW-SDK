@@ -1,4 +1,4 @@
-using Other.Template.PlateTemplate.Data;
+using Other.Template;
 using UnityEditor;
 
 namespace Editor.Plate {

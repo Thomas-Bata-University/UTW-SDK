@@ -1,6 +1,6 @@
 using Editor.Const;
 using Editor.Core;
-using Other.Template.HullTemplate.Data;
+using Other.Template;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ namespace Editor.Template.Hull {
     [CustomEditor(typeof(HullData))]
     public class HullEditor : DefaultEditor {
 
-        private SerializedProperty _hullSize;
+        private SerializedProperty _tankSize;
         private SerializedProperty _showPreview;
         private SerializedProperty _trackOffset;
 
@@ -19,14 +19,14 @@ namespace Editor.Template.Hull {
         private void OnEnable() {
             visual = GameObject.FindWithTag(Tags.HULL_VISUAL);
 
-            _hullSize = serializedObject.FindProperty("hullSize");
+            _tankSize = serializedObject.FindProperty("tankSize");
             _showPreview = serializedObject.FindProperty("showPreview");
             _trackOffset = serializedObject.FindProperty("trackOffset");
 
             RegisterPart(visual);
 
             if (_showPreview.boolValue) {
-                CreatePreview((HullSize)_hullSize.enumValueIndex);
+                CreatePreview((TankSize)_tankSize.enumValueIndex);
             }
 
             LoadAssetBundles();
@@ -54,15 +54,15 @@ namespace Editor.Template.Hull {
 
             // Dropdown
             EditorGUI.BeginChangeCheck();
-            int selectedIndex = _hullSize.enumValueIndex;
-            int newIndex = EditorGUILayout.Popup("Hull Size", selectedIndex, HullSizeInfo.GetDisplayNames());
+            int selectedIndex = _tankSize.enumValueIndex;
+            int newIndex = EditorGUILayout.Popup("Hull Size", selectedIndex, TankSizeInfo.GetDisplayNames());
 
             if (EditorGUI.EndChangeCheck() && newIndex != selectedIndex) {
-                _hullSize.enumValueIndex = newIndex;
+                _tankSize.enumValueIndex = newIndex;
                 serializedObject.ApplyModifiedProperties();
 
                 if (_showPreview.boolValue) {
-                    CreatePreview((HullSize)newIndex);
+                    CreatePreview((TankSize)newIndex);
                 }
             }
 
@@ -75,7 +75,7 @@ namespace Editor.Template.Hull {
 
                 if (newShow) {
                     if (_currentPreview == null) {
-                        CreatePreview((HullSize)_hullSize.enumValueIndex);
+                        CreatePreview((TankSize)_tankSize.enumValueIndex);
                     }
                     else {
                         _currentPreview.SetActive(true);
@@ -99,12 +99,12 @@ namespace Editor.Template.Hull {
             EditorGUILayout.LabelField("Distance between tracks", $"{actualDistance:F2} meters");
         }
 
-        private void CreatePreview(HullSize size) {
+        private void CreatePreview(TankSize size) {
             OpenProjectController.DestroyPreviewObjects();
             _currentPreview = null;
 
-            string prefabName = HullSizeInfo.Get(size).PrefabName;
-            string assetPath = $"Assets/Other/Template/OtherTemplate/{prefabName}.prefab";
+            string prefabName = TankSizeInfo.Get(size).PrefabName;
+            string assetPath = $"Assets/Other/Template/OtherTemplate/SuspensionPreview/{prefabName}.prefab";
 
             GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
             if (prefab != null) {
