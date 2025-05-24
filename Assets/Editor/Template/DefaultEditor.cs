@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Editor.Core;
+using Editor.Helper;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace Editor.Template {
 
         protected List<PartProperties> parts = new();
 
+        private string _newAssetBundleName = "";
         private string[] _assetBundleOptions;
         private int _selectedBundleIndex = 0;
 
@@ -162,8 +164,7 @@ namespace Editor.Template {
                 meshCollider.convex = true;
             }
         }
-
-
+        
         protected void AssetBundle(GameObject go) {
             if (go?.transform.parent is null) return;
 
@@ -176,6 +177,27 @@ namespace Editor.Template {
                 if (importer != null) {
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("AssetBundle Settings", EditorStyles.boldLabel);
+                    EditorGUILayout.BeginHorizontal();
+                    
+                    _newAssetBundleName = EditorGUILayout.TextField("Add new", _newAssetBundleName);
+                    
+                    if (GUILayout.Button("Add", GUILayout.Width(60))) {
+                        string newName = _newAssetBundleName.Trim().ToLowerInvariant();
+                    
+                        importer.assetBundleName = newName;
+                        importer.SaveAndReimport();
+                        
+                        ColorLogger.LogFormatted("New AssetBundle {0} successfully added.",
+                            _newAssetBundleName, "green", true);
+                    
+                        OpenProjectController.MetaData.assetBundle = newName;
+                    
+                        _newAssetBundleName = "";
+                        
+                        LoadAssetBundles();
+                    }
+                    
+                    EditorGUILayout.EndHorizontal();
 
                     _selectedBundleIndex = Array.IndexOf(_assetBundleOptions, importer.assetBundleName);
                     if (_selectedBundleIndex < 0) _selectedBundleIndex = 0;
@@ -191,6 +213,7 @@ namespace Editor.Template {
                     if (GUILayout.Button("Remove AssetBundle")) {
                         importer.assetBundleName = "";
                         importer.SaveAndReimport();
+                        OpenProjectController.MetaData.assetBundle = importer.assetBundleName;
                     }
                 }
             }

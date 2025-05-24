@@ -44,14 +44,18 @@ namespace Editor.Core {
 
         private void OnGUI() {
             LoadFolderContents();
-            
-            string metadataPath = EditorPrefs.GetString(MetadataPath, "");
-            ProjectManager.Metadata metadata = ProjectManager.GetMetadata(metadataPath);
-            IsOpenedProject =
-                metadata is not null;
+
+            if (!IsOpenedProject) {
+                string metadataPath = EditorPrefs.GetString(MetadataPath, "");
+                var metadata = ProjectManager.GetMetadata(metadataPath);
+                IsOpenedProject = metadata is not null;
+                if (IsOpenedProject) {
+                    MetaData = metadata;
+                }
+            }
+
             if (IsOpenedProject) {
-                MetaData = metadata;
-                DisplayOpenedProject(metadata);
+                DisplayOpenedProject(MetaData);
                 return;
             }
 

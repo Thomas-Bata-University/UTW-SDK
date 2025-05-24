@@ -100,6 +100,8 @@ namespace Editor.Template.Hull {
         }
 
         private void CreatePreview(TankSize size) {
+            if (visual is null) return;
+            
             OpenProjectController.DestroyPreviewObjects();
             _currentPreview = null;
 

@@ -81,6 +81,11 @@ namespace Editor.AssetBundle {
                         errors.Add($"Prefab not found at {metadata.prefabPath}");
                         return false;
                     }
+                    
+                    var importer = AssetImporter.GetAtPath(path);
+                    if (string.IsNullOrEmpty(importer.assetBundleName) || importer.assetBundleName.ToLower() == "none") {
+                        return true;
+                    }
 
                     if (!Enum.TryParse(metadata.tankPart, out TankPart part)) {
                         errors.Add($"Invalid tank part: '{metadata.tankPart}'");

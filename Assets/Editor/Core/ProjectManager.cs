@@ -108,7 +108,7 @@ namespace Editor.Core {
             public string created;
             public string lastUpdate;
 
-            public Metadata(string prefabPath, string projectPath, TankPart tankPart) {
+            public Metadata(string prefabPath, string projectPath, TankPart tankPart, string assetBundle) {
                 this.projectName = Path.GetFileName(projectPath);
                 this.projectPath = projectPath;
                 this.prefabName = Path.GetFileName(prefabPath);
@@ -117,6 +117,7 @@ namespace Editor.Core {
                 this.tankPart = tankPart.ToString();
                 this.isMap = tankPart == TankPart.NONE;
                 this.lastUpdate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                this.assetBundle = assetBundle;
             }
 
         }

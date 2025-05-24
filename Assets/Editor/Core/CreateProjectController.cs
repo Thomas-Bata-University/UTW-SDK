@@ -116,11 +116,12 @@ namespace Editor.Core {
             CopyFolders(basePath, foldersToCopy, projectPath);
 
             string prefabPath = Path.Combine(projectPath, "Prefabs", prefabName);
-            
-            ProjectManager.CreatePrefab(prefabPath, "default");
+
+            string assetBundleName = "default";
+            ProjectManager.CreatePrefab(prefabPath, assetBundleName);
 
             string metadataPath = ProjectManager.CreateMetadata(
-                new ProjectManager.Metadata(prefabPath, projectPath, tankPart));
+                new ProjectManager.Metadata(prefabPath, projectPath, tankPart, assetBundleName));
 
             OpenProjectController.OpenProject(metadataPath);
             Close();
