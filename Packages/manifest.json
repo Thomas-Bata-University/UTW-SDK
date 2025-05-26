@@ -2,7 +2,7 @@
   "dependencies": {
     "com.unity.feature.development": "1.0.1",
     "com.unity.probuilder": "5.1.1",
-    "com.utw.templatedata": "file:Packages/com.utw.templatedata",
+    "com.utw.templatedata": "https://github.com/Thomas-Bata-University/UTW-Library.git",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",

@@ -9,7 +9,6 @@ namespace Editor.Helper {
             string[] assetsToInclude = {
                 "Assets/Editor",
                 "Assets/Other",
-                "Packages",
                 "ProjectSettings/TagManager.asset",
                 "ProjectSettings/GraphicsSettings.asset",
                 "ProjectSettings/EditorBuildSettings.asset",
