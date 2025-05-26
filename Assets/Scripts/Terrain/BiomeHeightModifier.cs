@@ -1,46 +1,93 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-using Terrain;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-public static class BiomeHeightModifier
+namespace Terrain
 {
-    /// <summary>
-    /// Aplikuje úpravy výškové mapy na základě biomů – násobí výšky váženým průměrem výškových multiplikátorů jednotlivých biomů.
-    /// </summary>
-    /// <param name="heightMap">Vstupní (a výstupní) výšková mapa terénu, která bude upravena.</param>
-    /// <param name="biomeWeightMap">Mapa vah biomů pro každý bod terénu (trojrozměrné pole [z, x, biom]).</param>
-    /// <param name="biomes">Seznam definic biomů odpovídající indexům v biomeWeightMap.</param>
-    public static void ModifyHeightsByBiome(float[,] heightMap, float[,,] biomeWeightMap, List<BiomeDefinition> biomes)
+    public static class BiomeHeightModifier
     {
-        int height = heightMap.GetLength(0);
-        int width = heightMap.GetLength(1);
-
-        for (int z = 0; z < height; z++)
+        public static void ModifyHeightsByBiome(float[,] heightMap, float[,,] biomeWeightMap, List<BiomeDefinition> biomes)
         {
-            for (int x = 0; x < width; x++)
+            int height = heightMap.GetLength(0);
+            int width = heightMap.GetLength(1);
+            int biomeCount = biomes.Count;
+
+            for (int z = 0; z < height; z++)
             {
-                float weightedMultiplier = 0f;
-                float totalWeight = 0f;
-
-                for (int i = 0; i < biomes.Count; i++)
+                for (int x = 0; x < width; x++)
                 {
-                    if (biomes[i] == null) continue;
+                    float weightedMultiplier = 0f;
+                    float totalWeight = 0f;
 
-                    float weight = biomeWeightMap[z, x, i];
-                    float multiplier = Mathf.Clamp(biomes[i].heightMultiplier, 0.7f, 1.3f);
-                    weightedMultiplier += weight * multiplier;
-                    totalWeight += weight;
+                    for (int i = 0; i < biomeCount; i++)
+                    {
+                        if (biomes[i] == null) continue;
+
+                        float weight = biomeWeightMap[z, x, i];
+                        float multiplier = Mathf.Clamp(biomes[i].heightMultiplier, 0.7f, 1.3f);
+                        weightedMultiplier += weight * multiplier;
+                        totalWeight += weight;
+                    }
+
+                    float finalMultiplier = (totalWeight > 0f) ? weightedMultiplier / totalWeight : 1f;
+
+                    float gradientMagnitude = ComputeBiomeWeightGradient(biomeWeightMap, x, z, biomeCount, width, height);
+                    float blendFactor = Mathf.Clamp01(1f - gradientMagnitude * 1.5f);
+                    blendFactor = Mathf.SmoothStep(0f, 1f, blendFactor);
+
+                    float baseHeight = heightMap[z, x];
+                    float modifiedHeight = baseHeight * finalMultiplier;
+
+                    float maxDelta = 0.2f * baseHeight;
+                    float delta = Mathf.Abs(modifiedHeight - baseHeight);
+                    if (delta > maxDelta)
+                    {
+                        modifiedHeight = baseHeight + Mathf.Sign(modifiedHeight - baseHeight) * maxDelta;
+                    }
+
+                    heightMap[z, x] = Mathf.Lerp(baseHeight, modifiedHeight, blendFactor * 0.7f);
                 }
-
-                // Bezpečná normalizace
-                float finalMultiplier = (totalWeight > 0f) ? weightedMultiplier / totalWeight : 1f;
-
-                // Změkčení multiplikátoru – lineární interpolace mezi původní výškou a upravenou (zabrání špičkám)
-                float baseHeight = heightMap[z, x];
-                float modifiedHeight = baseHeight * finalMultiplier;
-                heightMap[z, x] = Mathf.Lerp(baseHeight, modifiedHeight, 0.7f); // 0.7 = míra vlivu biomu
             }
         }
-    }
 
+        private static float ComputeBiomeWeightGradient(float[,,] biomeWeightMap, int x, int z, int biomeCount, int width, int height)
+        {
+            float maxDiff = 0f;
+
+            for (int i = 0; i < biomeCount; i++)
+            {
+                float center = biomeWeightMap[z, x, i];
+                float sumDiff = 0f;
+                int count = 0;
+
+                if (x > 0)
+                {
+                    sumDiff += Mathf.Abs(center - biomeWeightMap[z, x - 1, i]);
+                    count++;
+                }
+                if (x < width - 1)
+                {
+                    sumDiff += Mathf.Abs(center - biomeWeightMap[z, x + 1, i]);
+                    count++;
+                }
+                if (z > 0)
+                {
+                    sumDiff += Mathf.Abs(center - biomeWeightMap[z - 1, x, i]);
+                    count++;
+                }
+                if (z < height - 1)
+                {
+                    sumDiff += Mathf.Abs(center - biomeWeightMap[z + 1, x, i]);
+                    count++;
+                }
+
+                if (count > 0)
+                {
+                    float avgDiff = sumDiff / count;
+                    maxDiff = Mathf.Max(maxDiff, avgDiff);
+                }
+            }
+
+            return maxDiff;
+        }
+    }
 }

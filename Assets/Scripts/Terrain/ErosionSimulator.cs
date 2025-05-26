@@ -1,6 +1,6 @@
 ﻿namespace Terrain
 {
-    public class ErosionSimulator
+    public abstract class ErosionSimulator
     {
         public static void ApplyThermalErosion(float[,] heightMap, int iterations, float talus)
         {
@@ -76,10 +76,8 @@
         {
             for (int x = 1; x < width - 1; x++)
             {
-                // 1. Dešťová voda
                 waterMap[z][x] += rainAmount;
 
-                // 2. Odvodnění do sousedů (simplified)
                 float currentHeight = heightMap[z, x] + waterMap[z][x];
                 float totalDelta = 0f;
                 float[] flow = new float[4];
@@ -115,10 +113,8 @@
                     }
                 }
 
-                // 3. Odpařování vody
                 waterMap[z][x] *= (1f - evaporationRate);
 
-                // 4. Uložení sedimentu do výškové mapy
                 heightMap[z, x] += sedimentMap[z][x];
                 sedimentMap[z][x] = 0f;
             }
