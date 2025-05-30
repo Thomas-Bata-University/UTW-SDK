@@ -14,7 +14,7 @@ namespace Editor.Core {
         private GUIStyle selectedGridItemStyle;
         private Vector2 scroll;
 
-        [MenuItem("Tools/Project Assets Browser")]
+        [MenuItem("UTW/Project Assets Browser", false, 4)]
         public static void ShowWindow() {
             GetWindow<ProjectDataBrowser>("Project Assets");
         }
@@ -62,11 +62,11 @@ namespace Editor.Core {
 
             EditorGUILayout.EndScrollView();
             
-            if (Event.current.type == EventType.MouseDown && Event.current.button == 0) {
-                GUI.FocusControl(null);
-                selectedAsset = null;
-                Repaint();
-            }
+            // if (Event.current.type == EventType.MouseDown && Event.current.button == 0) {
+            //     GUI.FocusControl(null);
+            //     selectedAsset = null;
+            //     Repaint();
+            // }
 
             GUILayout.Space(10);
             DrawBottomBar();

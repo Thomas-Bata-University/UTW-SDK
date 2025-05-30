@@ -28,7 +28,7 @@ namespace Editor.Task {
                 .ToList();
         }
 
-        public static List<CoreTask> GetConfig(TankPart part) {
+        private static List<CoreTask> GetConfig(TankPart part) {
             return part switch {
                 TankPart.HULL => new List<CoreTask> {
                     CreateCoreTask(Tags.HULL_VISUAL, "Hull"),
@@ -52,6 +52,8 @@ namespace Editor.Task {
                 },
                 TankPart.SUSPENSION => new List<CoreTask> {
                     CreateCoreTask(Tags.SUSPENSION_VISUAL, "Suspension"),
+                    CreateCoreTask(Tags.SPROCKET_VISUAL, "Sprocket"),
+                    CreateCoreTask(Tags.IDLER_VISUAL, "Idler"),
                 },
                 _ => new List<CoreTask>()
             };

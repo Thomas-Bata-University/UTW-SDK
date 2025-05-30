@@ -100,11 +100,10 @@
       "url": "https://packages.unity.com"
     },
     "com.utw.templatedata": {
-      "version": "https://github.com/Thomas-Bata-University/UTW-Library.git",
+      "version": "file:com.utw.templatedata",
       "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "3dee138a15794f8f6e171b928981fc9794d259ae"
+      "source": "embedded",
+      "dependencies": {}
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

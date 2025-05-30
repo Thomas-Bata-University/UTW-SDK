@@ -20,7 +20,7 @@ namespace Editor.Helper {
                 Directory.CreateDirectory(exportDirectory);
             }
 
-            string exportPath = Path.Combine(exportDirectory, "UTW-SDK.unitypackage");
+            string exportPath = exportDirectory + "/UTW-SDK.unitypackage";
 
             AssetDatabase.ExportPackage(
                 assetsToInclude,
