@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Core;
 using Editor.Core;
 using Terrain;
 using UnityEditor;
 using UnityEngine;
+using Utilities;
 
 namespace Editor.MapGenerator
 {
@@ -24,12 +24,15 @@ namespace Editor.MapGenerator
         private float[,,] generatedBiomeMap;
         private Vector2 scrollPos;
 
+        private GameObject mapGO;
+
         private string terrainName = "ProceduralTerrain";
         private string terrainTag = "";
 
         [MenuItem("Tools/Procedural Terrain Generator")]
         public static void ShowWindow()
         {
+            
             GetWindow<GeneratorSettingsEditor>("Procedural Terrain Generator");
         }
 
@@ -116,7 +119,7 @@ namespace Editor.MapGenerator
 
         private void GenerateTerrain()
         {
-            GameObject mapGO = GameObject.FindWithTag(Tags.MAP_VISUAL);
+            mapGO = GameObject.Find("Map");
             if (mapGO == null)
             {
                 Debug.LogError("Map GameObject nebyl nalezen ve scéně. Ujisti se, že existuje GameObject s názvem 'Map'.");

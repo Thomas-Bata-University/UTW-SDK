@@ -66,7 +66,7 @@ namespace Editor.Core {
             GUILayout.Space(10);
             GUILayout.Label(metadata.projectName, StyleUtils.Style(25, EditorStyles.boldLabel));
             GUILayout.Space(20);
-            
+
             if (metadata.isMap)
                 GeneratorSettingsEditor.ShowWindow();
             else
