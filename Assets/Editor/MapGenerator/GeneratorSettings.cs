@@ -113,7 +113,6 @@ namespace Editor.MapGenerator
                     VegetationGenerator.GenerateVegetation(generatedHeightMap, generatedBiomeMap, selectedBiomes, terrainObject, cityMask);
                 }
             }
-            
             EditorGUILayout.EndScrollView();
         }
 
