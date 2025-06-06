@@ -84,6 +84,12 @@ It offers a structured, yet flexible interface where users can customize:
 
 ---
 
+## Example Output
+
+![Generated Terrain Preview](preview.png)
+
+---
+
 ## License
 
 This project uses assets under Unity Asset Store license. The core generator logic is distributed under the MIT License unless otherwise noted.
